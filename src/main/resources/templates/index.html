@@ -695,7 +695,7 @@
                                 <div class="modal fade" id="textbox" aria-labelledby="textbox">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="" th:object="${newPost}" th:action="@{}">
+                                            <form action="" th:object="${newPost}" th:action="@{/api/posts}" th:method="post" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Share Your Mood</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -703,9 +703,11 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body custom-scroll">
-                                                <textarea name="share" class="share-field-big custom-scroll" placeholder="Say Something"></textarea>
+                                                <textarea name="share" th:field="*{content.text}" class="share-field-big custom-scroll" placeholder="Say Something"></textarea>
                                             </div>
                                             <div class="modal-footer">
+                                                <label for="mediaFiles">Image:</label>
+                                                <input type="file" id="mediaFiles" name="mediaFiles" multiple><br><br>
                                                 <button type="button" class="post-share-btn" data-dismiss="modal">cancel</button>
                                                 <button type="submit" class="post-share-btn">post</button>
                                             </div>

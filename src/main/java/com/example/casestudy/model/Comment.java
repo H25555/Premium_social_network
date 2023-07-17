@@ -15,7 +15,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_user")
     private User user;
     @OneToOne
@@ -27,5 +27,4 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "id_parent_comment")
     private Comment parentComment;
-
 }
