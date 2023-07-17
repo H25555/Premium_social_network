@@ -19,14 +19,18 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Content content;
+
     @ColumnDefault("0")
     private Integer like_count;
+
     private LocalDateTime create_date;
 
 }

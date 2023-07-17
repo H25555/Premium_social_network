@@ -16,11 +16,14 @@ public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @OneToOne(mappedBy = "content", cascade = CascadeType.ALL)
     @JoinColumn(name = "id_post")
     private Post post;
+
     @Column(columnDefinition = ("LONGTEXT"))
     private String text;
+
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
     private List<Media> media;
 }
