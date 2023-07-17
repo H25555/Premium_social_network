@@ -1,7 +1,8 @@
 package com.example.casestudy.service.auth;
 
 import com.example.casestudy.model.User;
-import com.example.casestudy.repositoy.UserRepository;
+import com.example.casestudy.repository.UserRepository;
+import com.example.casestudy.repository.UserRepository;
 import com.example.casestudy.service.auth.request.RegisterRequest;
 import com.example.casestudy.utils.AppUtils;
 import lombok.AllArgsConstructor;
