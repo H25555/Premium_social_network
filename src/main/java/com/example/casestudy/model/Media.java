@@ -15,8 +15,7 @@ public class Media {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String img_url;
-    private String video_url;
+    private String url;
 
     @ManyToOne
     @JoinColumn(name = "id_content")

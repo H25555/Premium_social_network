@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -695,6 +695,7 @@
                                 <div class="modal fade" id="textbox" aria-labelledby="textbox">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
+                                            <form action="" th:object="${newPost}" th:action="@{}">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Share Your Mood</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -706,8 +707,9 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="post-share-btn" data-dismiss="modal">cancel</button>
-                                                <button type="button" class="post-share-btn">post</button>
+                                                <button type="submit" class="post-share-btn">post</button>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

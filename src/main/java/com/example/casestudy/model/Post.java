@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,9 +22,10 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Content content;
+    @ColumnDefault("0")
     private Integer like_count;
     private LocalDateTime create_date;
 

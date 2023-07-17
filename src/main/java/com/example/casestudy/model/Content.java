@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,9 +16,11 @@ public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @OneToOne
+    @OneToOne(mappedBy = "content", cascade = CascadeType.ALL)
     @JoinColumn(name = "id_post")
     private Post post;
     @Column(columnDefinition = ("LONGTEXT"))
     private String text;
+    @OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
+    private List<Media> media;
 }
