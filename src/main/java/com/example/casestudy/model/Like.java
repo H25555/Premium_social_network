@@ -13,6 +13,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "likes")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -20,8 +21,9 @@ public class Like {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_post")
     private Post post;
+    @Enumerated(EnumType.STRING)
     private Status status;
 }

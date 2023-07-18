@@ -1,5 +1,6 @@
 package com.example.casestudy.model;
 
+import com.example.casestudy.model.enums.FileType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,8 @@ public class Media {
     private UUID id;
     private String url;
 
+    @Enumerated(EnumType.STRING)
+    private FileType fileType;
     @ManyToOne
     @JoinColumn(name = "id_content")
     private Content content;

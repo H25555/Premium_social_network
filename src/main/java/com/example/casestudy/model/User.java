@@ -29,6 +29,7 @@ public class User {
     private String phoneNumber;
 
     private String password;
+    @Enumerated(EnumType.STRING)
 
     private ERole role;
 }

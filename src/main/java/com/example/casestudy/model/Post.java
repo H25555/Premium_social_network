@@ -25,7 +25,7 @@ public class Post {
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @JoinColumn(name = "id_content")
     private Content content;
 
     @ColumnDefault("0")
