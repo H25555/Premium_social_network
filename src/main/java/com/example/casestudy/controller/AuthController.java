@@ -24,10 +24,10 @@ public class AuthController {
     public String showLogin(Model model) {
         RegisterRequest user = new RegisterRequest();
         model.addAttribute("user", user);
-        return "signup";
+        return "login";
     }
 
-    @GetMapping("index")
+    @GetMapping("/index")
     public String showIndex(Model model) {
         return "index";
     }

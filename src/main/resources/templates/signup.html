@@ -42,65 +42,65 @@
     <main>
         <div class="main-wrapper pb-0 mb-0">
             <div class="timeline-wrapper">
-                <div class="timeline-header">
-                    <div class="container-fluid p-0">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-lg-6">
-                                <div class="timeline-logo-area d-flex align-items-center">
-                                    <div class="timeline-logo">
-                                        <a href="index.html">
-                                            <img src="../assets/images/logo/logo.png" alt="timeline logo">
-                                        </a>
-                                    </div>
-                                    <div class="timeline-tagline">
-                                        <h6 class="tagline">It’s helps you to connect and share with the people in your life</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h2 class="text-center">Login Form</h2>
-                                </div>
-                                <div class="card-body">
-                                    <form
-                                            method="post"
-                                            role="form"
-                                            th:action="@{/login}"
-                                            class="form-horizontal"
-                                    >
-                                        <div class="form-group mb-3">
-                                            <label class="control-label"> Email</label>
-                                            <input
-                                                    type="text"
-                                                    id="loginUsername"
-                                                    name="username"
-                                                    class="form-control"
-                                                    placeholder="Enter email address"
-                                            />
-                                        </div>
+<!--                <div class="timeline-header">-->
+<!--                    <div class="container-fluid p-0">-->
+<!--                        <div class="row no-gutters align-items-center">-->
+<!--                            <div class="col-lg-6">-->
+<!--                                <div class="timeline-logo-area d-flex align-items-center">-->
+<!--                                    <div class="timeline-logo">-->
+<!--                                        <a href="index.html">-->
+<!--                                            <img src="../assets/images/logo/logo.png" alt="timeline logo">-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div class="timeline-tagline">-->
+<!--                                        <h6 class="tagline">It’s helps you to connect and share with the people in your life</h6>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="card">-->
+<!--                                <div class="card-header">-->
+<!--                                    <h2 class="text-center">Login Form</h2>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <form-->
+<!--                                            method="post"-->
+<!--                                            role="form"-->
+<!--                                            th:action="@{/login}"-->
+<!--                                            class="form-horizontal"-->
+<!--                                    >-->
+<!--                                        <div class="form-group mb-3">-->
+<!--                                            <label class="control-label"> Email</label>-->
+<!--                                            <input-->
+<!--                                                    type="text"-->
+<!--                                                    id="loginUsername"-->
+<!--                                                    name="username"-->
+<!--                                                    class="form-control"-->
+<!--                                                    placeholder="Enter email address"-->
+<!--                                            />-->
+<!--                                        </div>-->
 
-                                        <div class="form-group mb-3">
-                                            <label class="control-label"> Password</label>
-                                            <input
-                                                    type="password"
-                                                    id="loginPassword"
-                                                    name="password"
-                                                    class="form-control"
-                                                    placeholder="Enter password"
-                                            />
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <button type="submit" class="btn btn-primary" >Submit</button>
-                                            <span> Not registered ?
-                                <a th:href="@{/register}">Register/Signup here</a>
-                            </span>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                                        <div class="form-group mb-3">-->
+<!--                                            <label class="control-label"> Password</label>-->
+<!--                                            <input-->
+<!--                                                    type="password"-->
+<!--                                                    id="loginPassword"-->
+<!--                                                    name="password"-->
+<!--                                                    class="form-control"-->
+<!--                                                    placeholder="Enter password"-->
+<!--                                            />-->
+<!--                                        </div>-->
+<!--                                        <div class="form-group mb-3">-->
+<!--                                            <button type="submit" class="btn btn-primary" >Submit</button>-->
+<!--                                            <span> Not registered ?-->
+<!--                                <a th:href="@{/register}">Register/Signup here</a>-->
+<!--                            </span>-->
+<!--                                        </div>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="timeline-page-wrapper">
                     <div class="container-fluid p-0">
                         <div class="row no-gutters">
@@ -115,104 +115,35 @@
                                     <div class="signup-inner text-center">
                                         <h3 class="title">Wellcome to Adda</h3>
                                         <form class="signup-inner--form"
-                                                method="post"
-                                                role="form"
-                                                th:action="@{/register}"
-                                                th:object="${user}"
-
+                                              th:object="${user}"
+                                              th:action="@{/register}"
+                                              method="post"
                                         >
+
                                             <div class="row">
-                                                <div class="col-12">
-                                                    <label class="form-label">Email</label>
-                                                    <input
-                                                            class="form-control"
-                                                            id="email"
-                                                            name="email"
-                                                            placeholder="Enter email address"
-                                                            th:field="*{email}"
-                                                            type="email"
-                                                    />
-                                                    <p th:errors = "*{email}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('email')}"></p>
+                                                <div class="col-6">
+                                                    <input name="email" type="email" class="single-field" placeholder="Email">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input
-                                                            class="form-control"
-                                                            id="fullName"
-                                                            name="fullName"
-                                                            placeholder="Enter full name"
-                                                            th:field="*{fullName}"
-                                                            type="text"
-                                                    />
-                                                    <p th:errors = "*{fullName}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('fullName')}"></p>
+                                                    <input name="fullName" type="text" class="single-field" placeholder="Full Name">
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <input
-                                                            class="form-control"
-                                                            id="phoneNumber"
-                                                            name="phoneNumber"
-                                                            placeholder="Enter phoneNumber"
-                                                            th:field="*{phoneNumber}"
-                                                            type="text"
-                                                    />
-                                                    <p th:errors = "*{phoneNumber}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('phoneNumber')}"></p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Username</label>
-                                                    <input
-                                                            class="form-control"
-                                                            id="username"
-                                                            name="username"
-                                                            placeholder="Enter user name"
-                                                            th:field="*{userName}"
-                                                            type="text"
-                                                    />
-                                                    <p th:errors = "*{userName}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('userName')}"></p>
+                                                <div class="col-md-12">
+                                                    <input name="userName" type="text" class="single-field" placeholder="User Name">
                                                 </div>
                                                 <div class="col-12">
-                                                    <label class="form-label">Password</label>
-                                                    <input
-                                                            class="form-control"
-                                                            id="password"
-                                                            name="password"
-                                                            placeholder="Enter password"
-                                                            th:field="*{password}"
-                                                            type="password"
-                                                    />
-                                                    <p th:errors = "*{password}" class="text-danger"
-                                                       th:if="${#fields.hasErrors('password')}"></p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <select class="nice-select" name="sortby">
-                                                        <option value="trending">Gender</option>
-                                                        <option value="sales">Male</option>
-                                                        <option value="sales">Female</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <select class="nice-select" name="sortby">
-                                                        <option value="trending">Age</option>
-                                                        <option value="sales">18+</option>
-                                                        <option value="sales">18-</option>
-                                                    </select>
+                                                    <input name="password" type="password" class="single-field" placeholder="Password">
                                                 </div>
                                                 <div class="col-12">
-                                                    <select class="nice-select" name="sortby">
-                                                        <option value="trending">Country</option>
-                                                        <option value="sales">Vietnam</option>
-                                                        <option value="sales">Korea</option>
-                                                        <option value="sales">Thailand</option>
-                                                        <option value="sales">China</option>
-                                                    </select>
+                                                    <input  name="phoneNumber" type="phone" class="single-field" placeholder="PhoneNumber">
                                                 </div>
                                                 <div class="col-12">
-                                                    <button class="submit-btn" type="submit">Create Account</button>
+                                                    <button class="submit-btn">Create Account</button>
+                                                </div>
+                                                <div class="col-12">
+                                                    <a href="/login" class="submit-btn">Login</a>
                                                 </div>
                                             </div>
-                                            <h6 class="terms-condition">I have read & accepted the <a href="#">terms of use</a></h6>
+                                            <h6 class="terms-condition">I have read &amp; accepted the <a href="#">terms of use</a></h6>
                                         </form>
                                     </div>
                                 </div>
