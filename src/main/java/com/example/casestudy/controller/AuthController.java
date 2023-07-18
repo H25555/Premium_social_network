@@ -44,7 +44,7 @@ public class AuthController {
         // create model object to store form data
         RegisterRequest user = new RegisterRequest();
         model.addAttribute("user", user);
-        return "signup";
+        return "register";
     }
 
     @PostMapping("/register")
@@ -52,7 +52,7 @@ public class AuthController {
                                BindingResult result, Model model) {
         authService.checkUsernameOrPhoneNumberOrEmail(request, result);
         if (result.hasErrors()) {
-            return "/signup";
+            return "/register";
         }
         authService.register(request);
         return "redirect:/register?success";

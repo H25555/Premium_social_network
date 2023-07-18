@@ -39,10 +39,6 @@ public class SpringSecurity  {
                                 .requestMatchers("/profile").permitAll()
                                 .requestMatchers("/logout").permitAll()
                                 .requestMatchers("/login").permitAll()
-//                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-//                                .requestMatchers(PathRequest.toH2Console()).permitAll()
-//                                .requestMatchers("/login", "/signup").permitAll()
-//                                .requestMatchers("/", "/index.html", "/*.js", "/*.map", "/*.css").permitAll()
                                 .anyRequest().authenticated()
 
                 ).formLogin(
