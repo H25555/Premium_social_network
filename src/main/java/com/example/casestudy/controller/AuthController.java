@@ -27,10 +27,10 @@ public class AuthController {
         return "login";
     }
 
-//    @GetMapping("/index")
-//    public String showIndex(Model model) {
-//        return "index";
-//    }
+    @GetMapping("/index")
+    public String showIndex(Model model) {
+        return "index";
+    }
 
     @GetMapping("/profile")
     public String showProfile(Model model) {
