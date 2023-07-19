@@ -1,5 +1,20 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    .new-photo {
+        border-radius:50%;
+        height:100%;
+    }
+    .new-comment {
+        width: 100%;
+        height: 80px;
+        display: grid;
+        grid-template-columns: 10% auto;
+        margin: 0.5rem;
+        border-bottom: 1px solid #EEEEEE;
+    }
+
+</style>
 
 <head>
     <meta charset="utf-8">
@@ -11,9 +26,11 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
 
+
     <!-- CSS
 	============================================ -->
     <!-- google fonts -->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
@@ -63,7 +80,7 @@
                                                     <!-- profile picture end -->
                                                     <div class="profile-thumb">
                                                         <figure class="profile-thumb-middle">
-                                                            <img src="assets/images/profile/profile-small-3.jpg" alt="profile picture">
+                                                            <img src="assets/images/photos/profile-small-3.jpg" alt="profile picture">
                                                         </figure>
                                                     </div>
                                                     <!-- profile picture end -->
@@ -246,16 +263,22 @@
 
                             <!-- profile picture start -->
                             <div class="profile-setting-box">
+                                <form
+                                        th:object="${user}"
+                                        method="get"
+                                >
                                 <div class="profile-thumb-small">
                                     <a href="javascript:void(0)" class="profile-triger">
-                                        <figure>
-                                            <img src="assets/images/profile/profile-small-1.jpg" alt="profile picture">
+                                        <figure class="profile-thumb-middle">
+                                            <img class="new-photo" src="assets/images/photos/photo1.jpg" alt="profile picture">
                                         </figure>
                                     </a>
                                     <div class="profile-dropdown">
                                         <div class="profile-head">
-                                            <h5 class="name"><a href="#">Madison Howard</a></h5>
-                                            <a class="mail" href="#">mailnam@mail.com</a>
+                                            <h5 class="name">
+                                                <a href="#"></a>
+                                            </h5>
+                                            <a class="mail" href="#" ></a>
                                         </div>
                                         <div class="profile-body">
                                             <ul>
@@ -270,6 +293,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                             <!-- profile picture end -->
                         </div>
@@ -472,14 +496,14 @@
                                 <div class="profile-banner">
                                     <figure class="profile-banner-small">
                                         <a href="/profile">
-                                            <img src="assets/images/banner/banner-small.jpg" alt="">
+                                            <img src="assets/images/photos/photo3.jpg" alt="">
                                         </a>
                                         <a href="/profile" class="profile-thumb-2">
-                                            <img src="assets/images/profile/profile-midle-1.jpg" alt="">
+                                            <img class="new-photo" src="assets/images/photos/photo4.jpg" alt="">
                                         </a>
                                     </figure>
                                     <div class="profile-desc text-center">
-                                        <h6 class="author"><a href="/profile">Dimbel Lebmid</a></h6>
+                                        <h6 class="author"><a href="/profile">Messi</a></h6>
                                         <p>Any one can join with but Social network us if you want Any one can join with us if you want</p>
                                     </div>
                                 </div>
@@ -676,7 +700,7 @@
                                 <div class="profile-thumb">
                                     <a href="#">
                                         <figure class="profile-thumb-middle">
-                                            <img src="assets/images/profile/profile-small-37.jpg" alt="profile picture">
+                                            <img class="new-photo" src="assets/images/photos/photo1.jpg" alt="profile picture">
                                         </figure>
                                     </a>
                                 </div>
@@ -725,15 +749,15 @@
                                 <!-- profile picture end -->
                                 <div class="profile-thumb">
                                     <a href="#">
-                                        <figure class="profile-thumb-middle">
-                                            <img src="assets/images/profile/profile-small-1.jpg" alt="profile picture">
+                                        <figure class="profile-thumb-middle" >
+                                            <img  class="new-photo" src="assets/images/photos/photo2.jpg" alt="profile picture">
                                         </figure>
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
 
                                 <div class="posted-author">
-                                    <h6 class="author"><a href="/profile">merry watson</a></h6>
+                                    <h6 class="author"><a href="/profile">Anh CR7</a></h6>
                                     <span class="post-time">20 min ago</span>
                                 </div>
 
@@ -751,16 +775,15 @@
                                 </div>
                             </div>
                             <!-- post title start -->
+
                             <div class="post-content">
                                 <p class="post-desc">
-                                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                                    default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                                    in their infancy.
+                                    Siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
                                 </p>
                                 <div class="post-thumb-gallery">
                                     <figure class="post-thumb img-popup">
                                         <a href="assets/images/post/post-large-1.jpg">
-                                            <img src="assets/images/post/post-1.jpg" alt="post image">
+                                            <img src="assets/images/photos/photo5.jpg" alt="post image">
                                         </a>
                                     </figure>
                                 </div>
@@ -785,6 +808,48 @@
                                         </li>
                                     </ul>
                                 </div>
+
+                                <div class="share-box-inner">
+
+                                    <!-- profile picture end -->
+                                    <div class="profile-thumb">
+                                        <a href="#">
+                                            <figure class="profile-thumb-middle" >
+                                                <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <!-- profile picture end -->
+
+                                    <div class="share-content-box w-100">
+                                            <p  class="live-chat-field" >Cháy Sườn</p>
+                                        <button>
+                                            <span class="bi bi-reply">Reply</span>
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <div class="share-box-inner">
+
+                                    <!-- profile picture end -->
+                                    <div class="profile-thumb">
+                                        <a href="#">
+                                            <figure class="profile-thumb-middle" >
+                                                <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <!-- profile picture end -->
+
+                                    <div class="share-content-box w-100">
+                                        <form class="share-text-box">
+                                            <textarea name="share" class="share-text-field" placeholder="Say Something"></textarea>
+                                            <button type="submit" class="btn-share">Sent</button>
+                                        </form>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <!-- post status end -->
@@ -847,6 +912,28 @@
                                             </button>
                                         </li>
                                     </ul>
+                                </div>
+
+                                <div class="share-box-inner">
+
+                                    <!-- profile picture end -->
+                                    <div class="profile-thumb">
+                                        <a href="#">
+                                            <figure class="profile-thumb-middle">
+                                                <img src="assets/images/profile/profile-small-1.jpg" alt="profile picture">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <!-- profile picture end -->
+
+                                    <div class="share-content-box w-100">
+                                        <form class="share-text-box">
+                                            <textarea name="share" class="share-text-field" placeholder="Say Something"></textarea>
+                                            <button type="submit" class="btn-share">
+                                                <span class="bi bi-send"></span>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2030,6 +2117,35 @@
     <script src="assets/js/plugins/isotope.pkgd.min.js"></script>
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+
+<script>
+    const userName = document.querySelector('#user')
+    const submitComment = document.querySelector('.btn-share');
+    const comment = document.querySelector('.live-chat-field');
+    const commentsCount = document.querySelector('.share-box-inner');
+
+     feedbackArr = [];
+     let positiveFeedback = false;
+     submitComment.addEventListener('click',submitFeedback);
+
+     function submitFeedback(e){
+         e.preventDefault();
+         const userForm = userName.value
+         const commentForm = comment.value
+
+         if(userForm && commentForm !== ''){
+             newFeedBack = {
+                 "id" : Math.floor((Math.random()*1000) +1),
+                 "userName":userForm,
+                 
+
+             }
+         }
+     }
+
+
+
+</script>
 
 </body>
 
