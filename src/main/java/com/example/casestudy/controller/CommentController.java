@@ -14,8 +14,9 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
+
 public class CommentController {
-    private final CommentService commentService;
+//    private final CommentService commentService;
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Comment> getCommentById(@PathVariable("id") UUID id) {
 //

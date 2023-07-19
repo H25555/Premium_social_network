@@ -1,7 +1,9 @@
 package com.example.casestudy.service.comment;
 
 import com.example.casestudy.model.Comment;
+import com.example.casestudy.model.Post;
 import com.example.casestudy.repository.CommentRepository;
+import com.example.casestudy.repository.PostRepository;
 import com.example.casestudy.repository.UserRepository;
 import com.example.casestudy.service.user.UserService;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,8 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final UserService userService;
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
+
     public Comment saveComment(Comment comment){
         comment.setUser(userService.getUserById(comment.getUser().getId()).get());
         return commentRepository.save(comment);
@@ -29,6 +33,7 @@ public class CommentService {
         commentRepository.delete(comment);
     }
     public List<Comment> getCommentByPostId(UUID id){
-        return commentRepository.getCommentByPostId(id);
+        Post post = postRepository.findById(id).get();
+        return commentRepository.findByPostContaining(post);
     }
 }
