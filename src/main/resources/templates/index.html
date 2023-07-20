@@ -2269,6 +2269,55 @@
         }
     }
 
+        $(document).ready(function () {
+        var postId = [[${postId}]];
+        $.ajax(
+    {
+        url: 'api/posts/' + postId + '/comment',
+        type: 'GET',
+        success: function (comment) {
+        var commentSection = $('commentSection');
+        commentSection.empty();
+        $.each(comment, function (index, comment) {
+        var commentItem = '<p>' + comment.user.username + ':' + comment.content + '</p>';
+        commentSection.append(commentItem);
+    })
+    }
+    }
+        )
+    });
+        $('commentForm').submit(function (event) {
+        event.preventDefault();
+        var formData = $(this).serialize()
+        var postId = [[${postId}]];
+        $.ajax({
+        url: '/api/posts' + postId + '/comments',
+        type: 'POST',
+        data: formData,
+        success: function (response) {
+        $.ajax({
+        url: 'api/posts' + postId + '/comments',
+        type: 'GET',
+        success: function (comments) {
+        var commentSection = $('#commentSection');
+        commentSection.empty();
+        $.each(comments, function (index, comment) {
+        var commentItem = '<p>' + comment.user.username + ': ' + comment.content + '</p>';
+        commentSection.append(commentItem);
+    });
+    },
+        error: function () {
+        alert('Không thể lấy danh sách bình luận sau khi thêm mới!');
+    }
+    });
+    },
+        error: function () {
+        alert('Không thể thêm bình luận!');
+    }
+    })
+    });
+
+
 </script>
 </body>
 
