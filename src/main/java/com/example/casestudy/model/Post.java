@@ -30,7 +30,8 @@ public class Post {
     private Content content;
 
     @ColumnDefault("0")
-    private Integer like_count;
+    @Column(name = "like_count")
+    private Integer likeCount;
 
     private LocalDateTime create_date;
 

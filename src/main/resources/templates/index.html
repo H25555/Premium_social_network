@@ -5,14 +5,31 @@
         border-radius:50%;
         height:100%;
     }
-    .new-comment {
-        width: 100%;
-        height: 80px;
-        display: grid;
-        grid-template-columns: 10% auto;
-        margin: 0.5rem;
-        border-bottom: 1px solid #EEEEEE;
+    #comment-container{
+        display: none;
+       max-height: 300px;
+        overflow: auto;
+
     }
+    #reply-comment{
+        display: none;
+    }
+    .form-comment {
+        display: flex;
+        border-bottom: 1px solid #eee;
+        margin: 10px ;
+
+    }
+    .comment-info{
+        margin: 10px 10px;
+    }
+
+    .time-comment {
+        font-size: 12px;
+        color: #ccc;
+
+    }
+
 
 </style>
 
@@ -748,7 +765,7 @@
                             <div class="post-title d-flex align-items-center">
                                 <!-- profile picture end -->
                                 <div class="profile-thumb">
-                                    <a href="#">
+                                    <a href="assets/images/photos/photo2.jpg">
                                         <figure class="profile-thumb-middle" >
                                             <img  class="new-photo" src="assets/images/photos/photo2.jpg" alt="profile picture">
                                         </figure>
@@ -782,7 +799,7 @@
                                 </p>
                                 <div class="post-thumb-gallery">
                                     <figure class="post-thumb img-popup">
-                                        <a href="assets/images/post/post-large-1.jpg">
+                                        <a href="assets/images/photos/photo5.jpg">
                                             <img src="assets/images/photos/photo5.jpg" alt="post image">
                                         </a>
                                     </figure>
@@ -794,9 +811,9 @@
                                         <strong>201</strong>
                                     </button>
                                     <ul class="comment-share-meta">
-                                        <li>
-                                            <button class="post-comment">
-                                                <i class="bi bi-chat-bubble"></i>
+                                        <li onclick="showComment()">
+                                            <button class="post-comment" >
+                                                <i class="bi bi-chat-bubble" ></i>
                                                 <span>41</span>
                                             </button>
                                         </li>
@@ -810,33 +827,11 @@
                                 </div>
 
                                 <div class="share-box-inner">
-
                                     <!-- profile picture end -->
                                     <div class="profile-thumb">
                                         <a href="#">
                                             <figure class="profile-thumb-middle" >
-                                                <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
-                                            </figure>
-                                        </a>
-                                    </div>
-                                    <!-- profile picture end -->
-
-                                    <div class="share-content-box w-100">
-                                            <p  class="live-chat-field" >Cháy Sườn</p>
-                                        <button>
-                                            <span class="bi bi-reply">Reply</span>
-                                        </button>
-
-                                    </div>
-                                </div>
-
-                                <div class="share-box-inner">
-
-                                    <!-- profile picture end -->
-                                    <div class="profile-thumb">
-                                        <a href="#">
-                                            <figure class="profile-thumb-middle" >
-                                                <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                                <img  class="new-photo" id="user" src="assets/images/photos/photo1.jpg"/>
                                             </figure>
                                         </a>
                                     </div>
@@ -844,11 +839,56 @@
 
                                     <div class="share-content-box w-100">
                                         <form class="share-text-box">
-                                            <textarea name="share" class="share-text-field" placeholder="Say Something"></textarea>
-                                            <button type="submit" class="btn-share">Sent</button>
+                                            <textarea name="share" id="comment" class="share-text-field" placeholder="Say Something"></textarea>
+                                            <button type="submit" class="btn-share" id="comment-submit">Sent</button>
                                         </form>
                                     </div>
                                 </div>
+
+
+                                <div id="comment-container" >
+                                <div class="form-comment " >
+                                    <!-- profile picture end -->
+                                    <div class="profile-thumb">
+                                        <a href="#">
+                                            <figure class="profile-thumb-middle" >
+                                                <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <!-- profile picture end -->
+                                    <div class="comment-info">
+                                        <p  class="comment" >Cháy Sườn</p>
+                                        <button onclick="showReply()">
+                                            <span class="bi bi-reply" >Reply</span>
+                                        </button>
+                                        <span class="time-comment">1 phút trước</span>
+
+                                    <div id="reply-comment">
+                                        <div class="share-box-inner">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-middle" >
+                                                        <img  class="new-photo" id="userReply" src="assets/images/photos/photo1.jpg"/>
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="share-content-box w-100">
+                                                <form class="share-text-box">
+                                                    <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>
+                                                    <button type="submit" class="btn-share" id="submit">Sent</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    </div>
+                                </div>
+                                </div>
+
 
                             </div>
                         </div>
@@ -2118,35 +2158,118 @@
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
 
-<!--<script>-->
-<!--    const userName = document.querySelector('#user')-->
-<!--    const submitComment = document.querySelector('.btn-share');-->
-<!--    const comment = document.querySelector('.live-chat-field');-->
-<!--    const commentsCount = document.querySelector('.share-box-inner');-->
+<script>
+    const commentsCont = document.querySelector('#comment-container')
+    const submit = document.querySelector('#comment-submit')
+    const comment = document.querySelector('#comment')
+    const userName = document.querySelector('#user')
+    const reply = document.querySelector('.share-box-inner')
 
-<!--     feedbackArr = [];-->
-<!--     let positiveFeedback = false;-->
-<!--     submitComment.addEventListener('click',submitFeedback);-->
+    submit.addEventListener('click', submitComment)
 
-<!--     function submitFeedback(e){-->
-<!--         e.preventDefault();-->
-<!--         const userForm = userName.value-->
-<!--         const commentForm = comment.value-->
+    CommentArr = []
+    let positiveComment = false
 
-<!--         if(userForm && commentForm !== ''){-->
-<!--             newFeedBack = {-->
-<!--                 "id" : Math.floor((Math.random()*1000) +1),-->
-<!--                 "userName":userForm,-->
-<!--                 -->
+    function submitComment(e){
+        // lấy user
+        // const userForm = userName.value
+        // lấy bình luận
+        const commentForm = comment.value
+        // nếu nhập vào là rỗng
+        if(commentForm !== ''){
+            // tạo mới 1 bình luận
+            newComment = {
+                "id": Math.floor((Math.random() * 1000)+ 1),
+                // "userName": userForm,
+                "userComment": commentForm,
+                "typeOfComment": positiveComment
+            }
+            // thêm 1 bình luận mới vào array
+            CommentArr.push(newComment)
+            // xóa form cũ
+            resetForm()
+            // thêm bình luận vào list
+            createComment(newComment)
+            commentsCont.style.display = 'block'
+        }
+        e.preventDefault()
+    }
 
-<!--             }-->
-<!--         }-->
-<!--     }-->
+    function resetForm(){
+        // userName.value = ''
+        comment.value = ''
+        positiveComment = false
+    }
+    function createComment(item){
+        const div = document.createElement('div')
+        div.classList ="form-comment"
+            // 'comment-container'
+        div.id = item.id
+        div.innerHTML += `
+<!--<div class="form-comment">-->
+                                    <!-- profile picture end -->
+                                    <div class="profile-thumb">
+                                        <a href="#">
+                                            <figure class="profile-thumb-middle" >
+                                                <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <!-- profile picture end -->
+                                    <div class="comment-info">
+                                        <p  class="comment">
+                                            ${item.userComment}
+                                        </p>
+                                        <button onclick="showReply()">
+                                            <span class="bi bi-reply">Reply</span>
 
+<!--                                        <div id="reply-comment">-->
+<!--                                        <div class="share-box-inner">-->
+<!--                                            &lt;!&ndash; profile picture end &ndash;&gt;-->
+<!--                                            <div class="profile-thumb">-->
+<!--                                                <a href="#">-->
+<!--                                                    <figure class="profile-thumb-middle" >-->
+<!--                                                        <img  class="new-photo" id="userReply" src="assets/images/photos/photo1.jpg"/>-->
+<!--                                                    </figure>-->
+<!--                                                </a>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; profile picture end &ndash;&gt;-->
 
+<!--                                            <div class="share-content-box w-100">-->
+<!--                                                <form class="share-text-box">-->
+<!--                                                    <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>-->
+<!--                                                    <button type="submit" class="btn-share" id="submit">Sent</button>-->
+<!--                                                </form>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        </div>-->
+                                        </button>
+                                              <span class="time-comment">1 phút trước</span>
+<!--</div>-->
+                                </div>`
+        // div.insertBefore(html, div.firstChild);
+        commentsCont.insertAdjacentElement('afterbegin', div)
+    }
 
-<!--</script>-->
+    function showComment(){
+        const comment = document.getElementById('comment-container');
+        if(comment.style.display === 'none'){
+            comment.style.display = 'block'
+        }else {
+            comment.style.display = 'none'
+        }
+    }
 
+    function showReply(){
+        const reply = document.getElementById('reply-comment');
+        if(reply.style.display === 'none'){
+            reply.style.display = 'block'
+        }else {
+            reply.style.display = 'none'
+        }
+    }
+
+</script>
 </body>
 
 </html>

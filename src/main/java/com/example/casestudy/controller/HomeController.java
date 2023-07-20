@@ -1,5 +1,6 @@
 package com.example.casestudy.controller;
 
+import com.example.casestudy.model.User;
 import com.example.casestudy.service.post.request.PostSaveRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ public class HomeController {
     @GetMapping
     public ModelAndView showHomePage(){
         ModelAndView view = new ModelAndView("index");
+
         view.addObject("newPost", new PostSaveRequest());
         return view;
     }

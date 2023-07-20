@@ -15,15 +15,19 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_user")
     private User user;
+
     @OneToOne
     @JoinColumn(name = "id_content")
     private Content content;
+
     @ManyToOne
     @JoinColumn(name = "id_post")
     private Post post;
+
     @ManyToOne
     @JoinColumn(name = "id_parent_comment")
     private Comment parentComment;
