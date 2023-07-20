@@ -838,8 +838,8 @@
                                     <!-- profile picture end -->
 
                                     <div class="share-content-box w-100">
-                                        <form class="share-text-box">
-                                            <textarea name="share" id="comment" class="share-text-field" placeholder="Say Something"></textarea>
+                                        <form class="share-text-box" id="commentForm">
+                                            <textarea name="content" id="comment" class="share-text-field" placeholder="Say Something"></textarea>
                                             <button type="submit" class="btn-share" id="comment-submit">Sent</button>
                                         </form>
                                     </div>
@@ -2270,16 +2270,16 @@
     }
 
         $(document).ready(function () {
-        var postId = [[${postId}]];
+        const postId = [[${postId}]];
         $.ajax(
     {
         url: 'api/posts/' + postId + '/comment',
         type: 'GET',
         success: function (comment) {
-        var commentSection = $('commentSection');
+        const commentSection = $('commentSection');
         commentSection.empty();
         $.each(comment, function (index, comment) {
-        var commentItem = '<p>' + comment.user.username + ':' + comment.content + '</p>';
+        const commentItem = '<p>' + comment.user.username + ':' + comment.content + '</p>';
         commentSection.append(commentItem);
     })
     }
@@ -2288,8 +2288,8 @@
     });
         $('commentForm').submit(function (event) {
         event.preventDefault();
-        var formData = $(this).serialize()
-        var postId = [[${postId}]];
+        const formData = $(this).serialize()
+        const postId = [[${postId}]];
         $.ajax({
         url: '/api/posts' + postId + '/comments',
         type: 'POST',
@@ -2299,10 +2299,10 @@
         url: 'api/posts' + postId + '/comments',
         type: 'GET',
         success: function (comments) {
-        var commentSection = $('#commentSection');
+        const commentSection = $('#commentSection');
         commentSection.empty();
         $.each(comments, function (index, comment) {
-        var commentItem = '<p>' + comment.user.username + ': ' + comment.content + '</p>';
+        const commentItem = '<p>' + comment.user.username + ': ' + comment.content + '</p>';
         commentSection.append(commentItem);
     });
     },
