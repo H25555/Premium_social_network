@@ -14,7 +14,8 @@ import java.util.List;
 
 @Service
 public class UploadService {
-    String UPLOAD_DIR = "F:\\Codegym\\Module 4\\New folder\\StashTong\\src\\main\\resources\\assets\\postimage";
+    String UPLOAD_DIR = "E:\\CODEGYM\\git_clone_module4\\Premium_social_network\\src\\main\\resources\\assets\\postimage\\";
+    String SAVE_UPLOAD_DIR = "\\assets\\postimage\\";
     public List<PostSaveRequest.ContentSaveRequest.MediaSaveRequest> addFileToRequest(MultipartFile[] multipartFiles){
         List<PostSaveRequest.ContentSaveRequest.MediaSaveRequest> list = new ArrayList<>();
         for (MultipartFile file : multipartFiles) {
@@ -32,6 +33,7 @@ public class UploadService {
             PostSaveRequest.ContentSaveRequest.MediaSaveRequest mediaSave = new PostSaveRequest.ContentSaveRequest.MediaSaveRequest();
             String fileName = file.getOriginalFilename();
             String filePath = UPLOAD_DIR + fileName;
+            String savePath = SAVE_UPLOAD_DIR + fileName;
             String contentType = file.getContentType();
             if (contentType != null && contentType.startsWith("image/")) {
                 mediaSave.setFileType(FileType.IMAGE);
@@ -39,7 +41,7 @@ public class UploadService {
                 mediaSave.setFileType(FileType.VIDEO);
 
             }
-            mediaSave.setUrl(filePath);
+            mediaSave.setUrl(savePath);
             media.add(mediaSave);
             file.transferTo(new File(filePath));
         }

@@ -13,13 +13,18 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    public void createPost(PostSaveRequest request, UserDetails userDetails){
+
+    public List<Post> getAllPost() {
+        return postRepository.findAll();
+    }
+    public Post createPost(PostSaveRequest request, UserDetails userDetails){
         Post post = AppUtils.mapper.map(request, Post.class);
         String userName = userDetails.getUsername();
         User user = userRepository.findByEmailOrUserNameOrPhoneNumber(userName,userName,userName);
@@ -29,6 +34,7 @@ public class PostService {
         for (var item: post.getContent().getMedia()){
             item.setContent(post.getContent());
         }
-        postRepository.save(post);
+        Post postCreate = postRepository.save(post);
+        return postCreate;
     }
 }

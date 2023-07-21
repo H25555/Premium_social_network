@@ -1,6 +1,7 @@
 package com.example.casestudy.model;
 
 import com.example.casestudy.model.enums.FileType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,6 @@ public class Media {
     private FileType fileType;
     @ManyToOne
     @JoinColumn(name = "id_content")
+    @JsonIgnore
     private Content content;
 }

@@ -1,5 +1,6 @@
 package com.example.casestudy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,13 +23,16 @@ public class Comment {
 
     @OneToOne
     @JoinColumn(name = "id_content")
+    @JsonIgnore
     private Content content;
 
     @ManyToOne
     @JoinColumn(name = "id_post")
+    @JsonIgnore
     private Post post;
 
     @ManyToOne
     @JoinColumn(name = "id_parent_comment")
+    @JsonIgnore
     private Comment parentComment;
 }

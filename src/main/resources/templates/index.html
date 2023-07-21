@@ -761,139 +761,142 @@
                     <!-- share box end -->
 
                     <!-- post status start -->
-                    <div class="card">
-                        <!-- post title start -->
-                        <div class="post-title d-flex align-items-center">
-                            <!-- profile picture end -->
-                            <div class="profile-thumb">
-                                <a href="assets/images/photos/photo2.jpg">
-                                    <figure class="profile-thumb-middle" >
-                                        <img  class="new-photo" src="assets/images/photos/photo2.jpg" alt="profile picture">
-                                    </figure>
-                                </a>
-                            </div>
-                            <!-- profile picture end -->
-
-                            <div class="posted-author">
-                                <h6 class="author"><a href="/profile">Anh CR7</a></h6>
-                                <span class="post-time">20 min ago</span>
-                            </div>
-
-                            <div class="post-settings-bar">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <div class="post-settings arrow-shape">
-                                    <ul>
-                                        <li><button>copy link to adda</button></li>
-                                        <li><button>edit post</button></li>
-                                        <li><button>embed adda</button></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- post title start -->
-
-                        <div class="post-content">
-                            <p class="post-desc">
-                                Siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
-                            </p>
-                            <div class="post-thumb-gallery">
-                                <figure class="post-thumb img-popup">
-                                    <a href="assets/images/photos/photo5.jpg">
-                                        <img src="assets/images/photos/photo5.jpg" alt="post image">
-                                    </a>
-                                </figure>
-                            </div>
-                            <div class="post-meta">
-                                <button class="post-meta-like">
-                                    <i class="bi bi-heart-beat"></i>
-                                    <span>You and 201 people like this</span>
-                                    <strong>201</strong>
-                                </button>
-                                <ul class="comment-share-meta">
-                                    <li onclick="showComment()">
-                                        <button class="post-comment" >
-                                            <i class="bi bi-chat-bubble" ></i>
-                                            <span>41</span>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="post-share">
-                                            <i class="bi bi-share"></i>
-                                            <span>07</span>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="share-box-inner">
+                    <div id="post-block">
+                        <div class="card">
+                            <!-- post title start -->
+                            <div class="post-title d-flex align-items-center">
                                 <!-- profile picture end -->
                                 <div class="profile-thumb">
-                                    <a href="#">
+                                    <a href="assets/images/photos/photo2.jpg">
                                         <figure class="profile-thumb-middle" >
-                                            <img  class="new-photo" id="user" src="assets/images/photos/photo1.jpg"/>
+                                            <img  class="new-photo" src="assets/images/photos/photo2.jpg" alt="profile picture">
                                         </figure>
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
 
-                                <div class="share-content-box w-100">
-                                    <form class="share-text-box" id="commentForm">
-                                        <textarea name="content" id="comment" class="share-text-field" placeholder="Say Something"></textarea>
-                                        <button type="submit" class="btn-share" id="comment-submit">Sent</button>
-                                    </form>
+                                <div class="posted-author">
+                                    <h6 class="author"><a href="/profile">Anh CR7</a></h6>
+                                    <span class="post-time">20 min ago</span>
+                                </div>
+
+                                <div class="post-settings-bar">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <div class="post-settings arrow-shape">
+                                        <ul>
+                                            <li><button>copy link to adda</button></li>
+                                            <li><button>edit post</button></li>
+                                            <li><button>embed adda</button></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- post title start -->
 
+                            <div class="post-content">
+                                <p class="post-desc">
+                                    Siuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
+                                </p>
+                                <div class="post-thumb-gallery">
+                                    <figure class="post-thumb img-popup">
+                                        <a href="assets/images/photos/photo5.jpg">
+                                            <img src="assets/images/photos/photo5.jpg" alt="post image">
+                                        </a>
+                                    </figure>
+                                </div>
+                                <div class="post-meta">
+                                    <button class="post-meta-like">
+                                        <i class="bi bi-heart-beat"></i>
+                                        <span>You and 201 people like this</span>
+                                        <strong>201</strong>
+                                    </button>
+                                    <ul class="comment-share-meta">
+                                        <li onclick="showComment()">
+                                            <button class="post-comment" >
+                                                <i class="bi bi-chat-bubble" ></i>
+                                                <span>41</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="post-share">
+                                                <i class="bi bi-share"></i>
+                                                <span>07</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                            <div id="comment-container" >
-                                <div class="form-comment " >
+                                <div class="share-box-inner">
                                     <!-- profile picture end -->
                                     <div class="profile-thumb">
                                         <a href="#">
                                             <figure class="profile-thumb-middle" >
-                                                <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                                <img  class="new-photo" id="user" src="assets/images/photos/photo1.jpg"/>
                                             </figure>
                                         </a>
                                     </div>
                                     <!-- profile picture end -->
-                                    <div class="comment-info">
-                                        <p  class="comment" >Cháy Sườn</p>
-                                        <button onclick="showReply()">
-                                            <span class="bi bi-reply" >Reply</span>
-                                        </button>
-                                        <span class="time-comment">1 phút trước</span>
 
-                                        <div id="reply-comment">
-                                            <div class="share-box-inner">
-                                                <!-- profile picture end -->
-                                                <div class="profile-thumb">
-                                                    <a href="#">
-                                                        <figure class="profile-thumb-middle" >
-                                                            <img  class="new-photo" id="userReply" src="assets/images/photos/photo1.jpg"/>
-                                                        </figure>
-                                                    </a>
-                                                </div>
-                                                <!-- profile picture end -->
-
-                                                <div class="share-content-box w-100">
-                                                    <form class="share-text-box">
-                                                        <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>
-                                                        <button type="submit" class="btn-share" id="submit">Sent</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                    <div class="share-content-box w-100">
+                                        <form class="share-text-box" id="commentForm">
+                                            <textarea name="content" id="comment" class="share-text-field" placeholder="Say Something"></textarea>
+                                            <button type="submit" class="btn-share" id="comment-submit">Sent</button>
+                                        </form>
                                     </div>
                                 </div>
+
+
+                                <div id="comment-container" >
+                                    <div class="form-comment " >
+                                        <!-- profile picture end -->
+                                        <div class="profile-thumb">
+                                            <a href="#">
+                                                <figure class="profile-thumb-middle" >
+                                                    <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                                </figure>
+                                            </a>
+                                        </div>
+                                        <!-- profile picture end -->
+                                        <div class="comment-info">
+                                            <p  class="comment" >Cháy Sườn</p>
+                                            <button onclick="showReply()">
+                                                <span class="bi bi-reply" >Reply</span>
+                                            </button>
+                                            <span class="time-comment">1 phút trước</span>
+
+                                            <div id="reply-comment">
+                                                <div class="share-box-inner">
+                                                    <!-- profile picture end -->
+                                                    <div class="profile-thumb">
+                                                        <a href="#">
+                                                            <figure class="profile-thumb-middle" >
+                                                                <img  class="new-photo" id="userReply" src="assets/images/photos/photo1.jpg"/>
+                                                            </figure>
+                                                        </a>
+                                                    </div>
+                                                    <!-- profile picture end -->
+
+                                                    <div class="share-content-box w-100">
+                                                        <form class="share-text-box">
+                                                            <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>
+                                                            <button type="submit" class="btn-share" id="submit">Sent</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
-
-
                         </div>
+                        <!-- post status end -->
+
                     </div>
-                    <!-- post status end -->
 
                 </div>
 
@@ -1600,98 +1603,7 @@
 
 <!-- JS
 ============================================ -->
-<script>
-    // function uploadFile() {
-    //     var fileInput = document.getElementById('fileInput');
-    //     var file = fileInput.files[0];
-    //     var formData = new FormData();
-    //     formData.append('file', file);
-    //
-    //     console.log(formData)
-    //     $.ajax({
-    //         url: 'http://localhost:8080/api/file/upload',
-    //         method: "POST",
-    //         data: formData,
-    //         processData: false,
-    //         contentType: false,
-    //         success: function(response) {
-    //             alert('File uploaded successfully.');
-    //         },
-    //         error: function(error) {
-    //             alert('Error uploading file.');
-    //         }
-    //     });
-    // }
-    function uploadFile() {
-        const fileInput = document.getElementById("fileInput");
-        const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"];
-        const files = fileInput.files;
 
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const fileType = file.type;
-
-            if (!allowedTypes.includes(fileType)) {
-                alert("Chỉ chọn các tệp ảnh (JPEG, PNG, GIF) hoặc video (MP4, QuickTime).");
-                fileInput.value = ""; // Xóa tệp không hợp lệ khỏi ô chọn tệp
-                return false;
-            }
-        }
-
-        return true;
-        // var fileInput = document.getElementById("fileInput");
-        // var files = fileInput.files; // Lấy danh sách file từ ô input
-        // console.log(files)
-        // var formData = new FormData();
-        // for (var i = 0; i < files.length; i++) {
-        //     formData.append("files", files[i]); // Thêm từng file vào formData
-        // }
-        // console.log(...formData)
-        // // Gửi yêu cầu API
-        // $.ajax({
-        //     url: 'http://localhost:8080/api/file/upload',
-        //     type: "GET",
-        //     data: {
-        //         fileInput: files
-        //     },
-        //     processData: false,
-        //     contentType: false,
-        //     success: function (response) {
-        //         alert("Files uploaded successfully!");
-        //     },
-        //     error: function (xhr, status, error) {
-        //         alert("Failed to upload files.");
-        //         console.error("Error:", error);
-        //     }
-        // });
-    }
-    function createPost(e){
-        e.preventDefault();
-        const form = document.getElementById("postForm");
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        console.log(data);
-        $.ajax({
-            url: "http://localhost:8080/api/posts/create",
-            type: "POST",
-            headers: {
-                'Accept': 'application/json',
-            },
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-
-    }
-
-
-</script>
 
 <!-- Modernizer JS -->
 <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
@@ -1717,7 +1629,225 @@
 <script src="assets/js/plugins/isotope.pkgd.min.js"></script>
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
+<script>
 
+    function uploadFile() {
+        const fileInput = document.getElementById("fileInput");
+        const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"];
+        const files = fileInput.files;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const fileType = file.type;
+
+            if (!allowedTypes.includes(fileType)) {
+                alert("Chỉ chọn các tệp ảnh (JPEG, PNG, GIF) hoặc video (MP4, QuickTime).");
+                fileInput.value = ""; // Xóa tệp không hợp lệ khỏi ô chọn tệp
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+    function createPost(e){
+        e.preventDefault();
+        const form = document.getElementById("postForm");
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        console.log(data);
+        $.ajax({
+            url: "http://localhost:8080/api/posts/create",
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+            },
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log("response", response)
+                let postBlock = document.getElementById('post-block')
+                postBlock.insertAdjacentHTML("afterbegin", renderData1(response));
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+    }
+
+    /*Gọi tới API products để lấy ra danh sách toàn bộ sản phẩm
+	(DS products mặc định chứ không có sort, find ở đây)  */
+    function handleRenderDatas() {
+        console.log("123")
+        $.ajax({
+            type: "get",
+            url: "http://localhost:8080/api/posts",
+            success: function (datas) {
+                console.log("Data", datas)
+                renderDatas(datas)
+
+            },
+            error: function (data, textStatus, errorThrown) {
+                console.log("Data")
+                /* $('#message').html('Email đã tồn tại'); */
+            },
+        });
+    }
+    handleRenderDatas()
+    function renderDatas(datas) {
+        let html = ``;
+        datas.forEach((data) => {
+            html += renderData1(data)
+        })
+        let postBlock = document.getElementById('post-block')
+        postBlock.innerHTML = html;
+    }
+
+    function renderData1(data) {
+        console.log("data.content.media.url", data.content.media[0].url)
+        let mediaHtml = ``;
+        data.content.media.forEach((media) => {
+            mediaHtml += `<img src=${media.url} alt="post image">`;
+        });
+        return `<div class="card">
+                    <!-- post title start -->
+                    <div class="post-title d-flex align-items-center">
+                        <!-- profile picture end -->
+                        <div class="profile-thumb">
+                            <a href="assets/images/photos/photo2.jpg">
+                                <figure class="profile-thumb-middle" >
+                                    <img  class="new-photo" src="assets/images/photos/photo2.jpg" alt="profile picture">
+                                </figure>
+                            </a>
+                        </div>
+                        <!-- profile picture end -->
+
+                        <div class="posted-author">
+                            <h6 class="author"><a href="/profile">${data.user.fullName}</a></h6>
+                            <span class="post-time">1 min ago</span>
+                        </div>
+
+                        <div class="post-settings-bar">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <div class="post-settings arrow-shape">
+                                <ul>
+                                    <li><button>copy link to adda</button></li>
+                                    <li><button>edit post</button></li>
+                                    <li><button>embed adda</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- post title start -->
+
+                    <div class="post-content">
+                        <p class="post-desc">
+                            ${data.content.text}
+                        </p>
+                        <div class="post-thumb-gallery">
+                            <figure class="post-thumb img-popup">
+                                <a href="assets/images/photos/photo5.jpg">
+                                    ${mediaHtml}
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="post-meta">
+                            <button class="post-meta-like">
+                                <i class="bi bi-heart-beat"></i>
+                                <span>${data.likeCount} like</span>
+                                <strong>201</strong>
+                            </button>
+                            <ul class="comment-share-meta">
+                                <li onclick="showComment()">
+                                    <button class="post-comment" >
+                                        <i class="bi bi-chat-bubble" ></i>
+                                        <span>0</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="post-share">
+                                        <i class="bi bi-share"></i>
+                                        <span>0</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="share-box-inner">
+                            <!-- profile picture end -->
+                            <div class="profile-thumb">
+                                <a href="#">
+                                    <figure class="profile-thumb-middle" >
+                                        <img  class="new-photo" id="user" src="assets/images/photos/photo1.jpg"/>
+                                    </figure>
+                                </a>
+                            </div>
+                            <!-- profile picture end -->
+
+                            <div class="share-content-box w-100">
+                                <form class="share-text-box" id="commentForm">
+                                    <textarea name="content" id="comment" class="share-text-field" placeholder="Say Something"></textarea>
+                                    <button type="submit" class="btn-share" id="comment-submit">Sent</button>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <div id="comment-container" >
+                            <div class="form-comment " >
+                                <!-- profile picture end -->
+                                <div class="profile-thumb">
+                                    <a href="#">
+                                        <figure class="profile-thumb-middle" >
+                                            <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                        </figure>
+                                    </a>
+                                </div>
+                                <!-- profile picture end -->
+                                <div class="comment-info">
+                                    <p  class="comment" >Cháy Sườn</p>
+                                    <button onclick="showReply()">
+                                        <span class="bi bi-reply" >Reply</span>
+                                    </button>
+                                    <span class="time-comment">1 phút trước</span>
+
+                                    <div id="reply-comment">
+                                        <div class="share-box-inner">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-middle" >
+                                                        <img  class="new-photo" id="userReply" src="assets/images/photos/photo1.jpg"/>
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="share-content-box w-100">
+                                                <form class="share-text-box">
+                                                    <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>
+                                                    <button type="submit" class="btn-share" id="submit">Sent</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>`
+    }
+
+
+
+</script>
 <script>
     const commentsCont = document.querySelector('#comment-container')
     const submit = document.querySelector('#comment-submit')

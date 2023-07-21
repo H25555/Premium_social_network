@@ -1,5 +1,6 @@
 package com.example.casestudy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Content {
 
     @OneToOne(mappedBy = "content", cascade = CascadeType.ALL)
     @JoinColumn(name = "id_post")
+    @JsonIgnore
     private Post post;
 
     @Column(columnDefinition = ("LONGTEXT"))
