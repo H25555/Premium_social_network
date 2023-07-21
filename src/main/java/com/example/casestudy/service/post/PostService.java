@@ -20,11 +20,15 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     public void createPost(PostSaveRequest request, UserDetails userDetails){
-       Post post = AppUtils.mapper.map(request, Post.class);
-       String userName = userDetails.getUsername();
-       User user = userRepository.findByEmailOrUserNameOrPhoneNumber(userName,userName,userName);
-       post.setUser(user);
-       post.setCreate_date(LocalDateTime.now());
-       postRepository.save(post);
+        Post post = AppUtils.mapper.map(request, Post.class);
+        String userName = userDetails.getUsername();
+        User user = userRepository.findByEmailOrUserNameOrPhoneNumber(userName,userName,userName);
+        post.setUser(user);
+        post.setLikeCount(0);
+        post.setCreate_date(LocalDateTime.now());
+        for (var item: post.getContent().getMedia()){
+            item.setContent(post.getContent());
+        }
+        postRepository.save(post);
     }
 }
