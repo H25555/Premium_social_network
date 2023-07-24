@@ -42,7 +42,7 @@ comment.setContentComment(content);
         commentRepository.delete(comment);
     }
     public List<Comment> getCommentByPostId(Long id){
-        Post post = postRepository.findById(id).get();
-        return commentRepository.findByPostContaining(post);
+//        Post post = postRepository.findById(id).get();
+        return commentRepository.findByPostId(id);
     }
 }

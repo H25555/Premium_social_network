@@ -30,7 +30,8 @@ public class RestComment {
 
     }
     @GetMapping
-    public List<Comment> getAllComment(@PathVariable("postId") Long postId){
-        return commentService.getCommentByPostId(postId);
+    public List<Comment> getAllComment(@RequestParam("postId") Long postId){
+        List<Comment> comments = commentService.getCommentByPostId(postId);
+        return comments;
     }
 }

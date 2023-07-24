@@ -15,6 +15,7 @@ public class ContentComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne(mappedBy = "contentComment", cascade = CascadeType.ALL)
     @JoinColumn(name = "id_content_conmment")
     @JsonIgnore

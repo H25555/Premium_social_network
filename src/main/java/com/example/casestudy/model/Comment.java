@@ -21,11 +21,10 @@ public class Comment {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_content_conmment")
-    @JsonIgnore
-    private ContentComment contentComment;
 
+    private ContentComment contentComment;
 
     @ManyToOne
     @JoinColumn(name = "id_post")

@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -32,6 +35,18 @@ public class PostRestController {
     @GetMapping
     public ResponseEntity<?> getAllPosts() {
         List<Post> posts = postService.getAllPost();
+//        List<Map<String, Object>> response = new ArrayList<>();
+//        posts.stream().forEach(post -> {
+//            Map<String, Object> data = new HashMap<>();
+//            data.put("id",post.getId());
+//            data.put("comments",post.getComments());
+//            data.put("content",post.getContent());
+//            data.put("user",post.getUser());
+//            data.put("create_date",post.getCreate_date());
+//            data.put("likeCount",post.getLikeCount());
+//            response.add(data);
+//        });
+//        System.out.println(21312);
         return ResponseEntity.ok(posts);
     }
 

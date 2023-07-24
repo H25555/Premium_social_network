@@ -22,6 +22,7 @@ public class Content {
     @JoinColumn(name = "id_post")
     @JsonIgnore
     private Post post;
+
     @Column(columnDefinition = ("LONGTEXT"))
     private String text;
 

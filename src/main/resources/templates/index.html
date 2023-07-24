@@ -20,23 +20,31 @@
         border-radius:50%;
         height:100%;
     }
-    #comment-container{
+    .comment-container{
         display: none;
        max-height: 300px;
         overflow: auto;
 
     }
-    #reply-comment{
+
+    #commentForm a {
+        color: white;
+    }
+    .reply-comment{
         display: none;
+        padding-left: 30px;
+        width: 100%;
     }
     .form-comment {
         display: flex;
         border-bottom: 1px solid #eee;
         margin: 10px ;
+        flex-wrap: wrap;
 
     }
     .comment-info{
-        margin: 10px 10px;
+        margin: 10px 10px 10px 20px;
+        width: 70%;
     }
 
     .time-comment {
@@ -832,7 +840,7 @@
                                         <strong>201</strong>
                                     </button>
                                     <ul class="comment-share-meta">
-                                        <li onclick="showComment()">
+                                        <li>
                                             <button class="post-comment" >
                                                 <i class="bi bi-chat-bubble" ></i>
                                                 <span>41</span>
@@ -1745,12 +1753,13 @@
     /*Gọi tới API products để lấy ra danh sách toàn bộ sản phẩm
 	(DS products mặc định chứ không có sort, find ở đây)  */
     function handleRenderDatas() {
-        console.log("123")
+
         $.ajax({
             type: "get",
+            dataType: 'json',
             url: "http://localhost:8080/api/posts",
             success: function (datas) {
-
+                console.log(datas)
                 renderDatas(datas)
 
             },
@@ -1765,17 +1774,78 @@
         let html = ``;
         datas.forEach((data) => {
             html += renderData1(data)
+            // renderComment(data.comments,data.id);
         })
         let postBlock = document.getElementById('post-block')
         postBlock.innerHTML = html;
     }
 
+    function showComment(id) {
+        const comment = document.getElementById('comment-'+id);
+        if(comment.style.display === 'none'){
+            comment.style.display = 'block'
+        }else {
+            comment.style.display = 'none'
+        }
+
+    }
+
     function renderData1(data) {
         console.log(data)
         let mediaHtml = ``;
+        let commentBlock = ``;
         data.content.media.forEach((media) => {
             mediaHtml += `<img src=${media.url} alt="post image">`;
         });
+
+        data.comments.reverse().forEach(comment => {
+            commentBlock += `
+                     <div class="form-comment" >
+                                <!-- profile picture end -->
+                                <div class="profile-thumb">
+                                    <a href="#">
+                                        <figure class="profile-thumb-middle" >
+                                            <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                        </figure>
+                                    </a>
+                                </div>
+                                <!-- profile picture end -->
+
+                                <div class="comment-info" id="commentSection">
+                                    <p  class="comment" >${comment.contentComment.text}</p>
+                                    <button onclick="showReply(${comment.id})">
+                                        <span class="bi bi-reply" >Reply</span>
+                                    </button>
+                                    <span class="time-comment">1 phút trước</span>
+                              </div>
+
+                                    <div class="reply-comment" id="reply-comment-${comment.id}">
+                                        <div class="share-box-inner">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-middle" >
+                                                        <img  class="new-photo" id="userReply" src="assets/images/photos/photo1.jpg"/>
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="share-content-box w-100">
+                                                <form class="share-text-box">
+                                                    <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>
+                                                    <button type="submit" class="btn-share" id="submit">SEND</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+            `
+        });
+
         return `<div class="card">
                     <!-- post title start -->
                     <div class="post-title d-flex align-items-center">
@@ -1827,7 +1897,7 @@
                                 <strong>201</strong>
                             </button>
                             <ul class="comment-share-meta">
-                                <li onclick="showComment()">
+                                <li onclick="showComment(${data.id})">
                                     <button class="post-comment" >
                                         <i class="bi bi-chat-bubble" ></i>
                                         <span>0</span>
@@ -1856,16 +1926,72 @@
                             <div class="share-content-box w-100">
                                 <form class="share-text-box" id="commentForm">
                                     <textarea name="content" id="comment${data.id}" class="share-text-field" placeholder="Say Something"></textarea>
-                                    <a type="submit" class="btn-share" onclick="submitComment('${data.id}')" >Sent</a>
+                                    <a type="submit" class="btn-share" onclick="submitComment('${data.id}')" >SEND</a>
                                 </form>
                             </div>
                         </div>
 
 
-                        <div id="comment-container" >
-                            <div class="form-comment " >
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
+                        <div class="comment-container" id="comment-${data.id}" >
+
+                            ${commentBlock}
+
+                                   </div>
+                         </div>
+
+                    </div>
+                </div>`
+    }
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:inline="javascript">
+
+    const commentsCont = document.querySelector('#comment-container')
+    const submit = document.querySelector('#comment-submit')
+    const userName = document.querySelector('#user')
+    const reply = document.querySelector('.share-box-inner')
+
+    // submit.addEventListener('click', submitComment)
+
+    CommentArr = []
+    let positiveComment = false
+
+    function submitComment(id){
+        // lấy user
+        // const userForm = userName.value
+        // lấy bình luận
+        const comment = document.querySelector('#comment'+id)
+        const value = comment.value
+        // nếu nhập vào là rỗng
+        if(value !== ''){
+            $.ajax({
+                    url: '/api/comments',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        content: value,
+                        id: id
+                    }),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        // Đã thêm mới bình luận thành công, cập nhật lại danh sách bình luận
+                        // getCommentsForPost(id);
+
+
+
+                       // Xóa nội dung trong textarea sau khi thêm bình luận thành công
+
+                        document.querySelector('#comment-'+id).style.display = 'block'
+                        document.querySelector('#comment'+id).value=''
+
+                        const divNew = document.createElement('div')
+                        divNew.classList ="form-comment"
+                        // 'comment-container'
+                        divNew.innerHTML += `
+
+                                    <div class="profile-thumb">
                                     <a href="#">
                                         <figure class="profile-thumb-middle" >
                                             <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
@@ -1873,14 +1999,16 @@
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
+
                                 <div class="comment-info" id="commentSection">
-                                    <p  class="comment" >Cháy Sườn</p>
-                                    <button onclick="showReply()">
+                                    <p  class="comment" >${response.contentComment.text}</p>
+                                    <button onclick="showReply(response.id)">
                                         <span class="bi bi-reply" >Reply</span>
                                     </button>
                                     <span class="time-comment">1 phút trước</span>
-                                    </div>
-                                    <div id="reply-comment">
+                              </div>
+
+                                    <div class="reply-comment" id="reply-comment-${response.id}">
                                         <div class="share-box-inner">
                                             <!-- profile picture end -->
                                             <div class="profile-thumb">
@@ -1900,80 +2028,133 @@
                                             </div>
                                         </div>
                                     </div>
+                                            `
+                        document.querySelector('#comment-'+id).insertAdjacentElement('afterbegin', divNew);
+                                    },
 
-                                </div>
-                            </div>
-                        </div>
+                        //thêm mới vào div
 
 
-                    </div>
-                </div>`
-    }
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script th:inline="javascript">
-
-    const commentsCont = document.querySelector('#comment-container')
-    const submit = document.querySelector('#comment-submit')
-
-    const userName = document.querySelector('#user')
-    const reply = document.querySelector('.share-box-inner')
-
-    // submit.addEventListener('click', submitComment)
-
-    CommentArr = []
-    let positiveComment = false
-
-    function submitComment(id){
-        // lấy user
-        // const userForm = userName.value
-        // lấy bình luận
-        const comment = document.querySelector('#comment'+id)
-        const value = comment.value
-        // nếu nhập vào là rỗng
-        if(value !== ''){
-            // const data= {
-            //     "content": {
-            //         "text" : value
-            //     },
-            //      "post": {
-            //             "id": id
-            //                 }
-            // }
-            // tạo mới 1 bình luận
-
-            $.ajax({
-                    url: '/api/comments',
-                    type: 'POST',
-                    data: JSON.stringify({
-                        content: value,
-                        id: id
-                    }),
-                    contentType: 'application/json',
-                    success: function (response) {
-                        newComment = {
-                            "id": Math.floor((Math.random() * 1000)+ 1),
-                            // "userName": userForm,
-                            "userComment": commentForm,
-                            "typeOfComment": positiveComment
-                        }
-                        // thêm 1 bình luận mới vào array
-                        CommentArr.push(response)
-                        // xóa form cũ
-                        resetForm()
-                        // thêm bình luận vào list
-                        createComment(newComment)
-                        commentsCont.style.display = 'block'
-                    },
-                    error: function () {
-                        alert('Không thể thêm bình luận!');
-                    }
+                      error: function () {
+                            alert('Không thể thêm bình luận!');
+                                    }
                 });
 
 
         }
     }
+    // Hàm sử dụng Ajax để lấy danh sách bình luận và hiển thị lên trang
+    // function loadComments() {
+    //     const postId = [[${postId}]];
+    //
+    //     $.ajax({
+    //         url: '/api/posts/' + postId + '/comments',
+    //         type: 'GET'
+    //     })
+    //         .done(function(comments) {
+    //             const commentSection = $('#commentSection');
+    //             commentSection.empty();
+    //
+    //             // Hiển thị danh sách bình luận
+    //             $.each(comments, function(index, comment) {
+    //                 const div = document.createElement('div');
+    //                 div.classList = "form-comment";
+    //                 div.id = index.id;
+    //                 div.innerHTML += `
+    //             <!-- Nội dung hiển thị bình luận -->
+    //                                 <!-- profile picture end -->
+    //                                 <div class="profile-thumb">
+    //                                     <a href="#">
+    //                                         <figure class="profile-thumb-middle" >
+    //                                             <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+    //                                         </figure>
+    //                                     </a>
+    //                                 </div>
+    //                                 <!-- profile picture end -->
+    //                                 <div class="comment-info">
+    //                                     <p  class="comment">
+    //                                         ${index.username}
+    //                                     </p>
+    //                                     <button onclick="showReply()">
+    //                                         <span class="bi bi-reply">Reply</span>
+    //                                     </button>
+    //                                           <span class="time-comment"></span>
+    //                             </div>`
+    //                 ;
+    //                 commentsCont.insertAdjacentElement('afterbegin', div);
+    //                 commentSection.append(comment);
+    //             });
+    //
+    //             // Xử lý sự kiện click nút "Xóa" cho mỗi bình luận
+    //             $('.btn-delete-comment').click(function() {
+    //                 const commentId = $(this).data('comment-id');
+    //                 deleteComment(commentId);
+    //             });
+    //         })
+    //         .fail(function() {
+    //             alert('Không thể lấy danh sách bình luận!');
+    //         });
+    // }
+    function getCommentsForPost(postId) {
+        $.ajax({
+            url: `/api/comments`,
+            type: 'GET',
+            data: {
+                postId: postId
+
+            },
+            success: function (comments) {
+                const commentsContainer = $(`#comment_${postId}`);
+                commentsContainer.empty();
+
+                $.each(comments, function (index, comment) {
+                    console.log(comment)
+                    // Hiển thị nội dung của bình luận
+                    const commentDiv = document.createElement('div');
+                    commentDiv.innerHTML = `
+                         <div class="profile-thumb">
+                                    <a href="#">
+                                         <figure class="profile-thumb-middle" >
+                                            <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                        </figure>
+                                     </a>
+                                 </div>
+                                 <!-- profile picture end -->
+                                <div class="comment-info">
+                                     <p  class="comment">
+                                        ${comment.user.username}
+                                  </p>
+                                     <button onclick="showReply()">
+                                      <span class="bi bi-reply">Reply</span>
+                                    </button>
+                                         <span class="time-comment"></span>
+                            </div>
+                        <p>${comment.user.username}: ${comment.content.text}</p>
+                    `;
+
+                    commentsContainer.append(commentDiv);
+                });
+            },
+            error: function () {
+                alert('Error getting comments');
+            }
+        });
+    }
+
+    function deleteComment(commentId) {
+            $.ajax({
+                url: '/api/comments/' + commentId,
+                type: 'DELETE',
+                success: function () {
+                    // Đã xóa bình luận thành công, cập nhật lại danh sách bình luận
+                    getCommentsForPost();
+                },
+                error: function () {
+                    alert('Không thể xóa bình luận!');
+                }
+            });
+        }
 
     function resetForm(){
         // userName.value = ''
@@ -2003,109 +2184,21 @@
                                         <button onclick="showReply()">
                                             <span class="bi bi-reply">Reply</span>
                                         </button>
-                                              <span class="time-comment">1 phút trước</span>
+                                              <span class="time-comment"></span>
                                 </div>`
         commentsCont.insertAdjacentElement('afterbegin', div)
     }
 
-    function showComment(){
-        const comment = document.getElementById('comment-container');
-        if(comment.style.display === 'none'){
-            comment.style.display = 'block'
-        }else {
-            comment.style.display = 'none'
-        }
-    }
 
-    function showReply(){
-        const reply = document.getElementById('reply-comment');
+
+    function showReply(id){
+        const reply = document.getElementById('reply-comment-'+id);
         if(reply.style.display === 'none'){
             reply.style.display = 'block'
         }else {
             reply.style.display = 'none'
         }
     }
-
-    // $(document).ready(function() {
-    //     // Load danh sách bình luận khi trang được tải
-    //     loadComments();
-    //     $('#submit').click(function (event) {
-    //         event.preventDefault();
-    //         const content = $('#commentReply').val();
-    //         const postId = [[${postId}]];
-    //
-    //         // Tạo đối tượng bình luận mới
-    //         const newComment = {
-    //             content: content,
-    //             post: {
-    //                 id: postId
-    //             }
-    //         };
-    //
-    //         // Gửi yêu cầu POST để thêm mới bình luận
-    //         $.ajax({
-    //             url: '/api/comments',
-    //             type: 'POST',
-    //             data: JSON.stringify(newComment),
-    //             contentType: 'application/json',
-    //             success: function (response) {
-    //                 // Đã thêm mới bình luận thành công, cập nhật lại danh sách bình luận
-    //                 loadComments();
-    //                 $('#commentReply').val(''); // Xóa nội dung trong textarea sau khi thêm bình luận thành công
-    //             },
-    //             error: function () {
-    //                 alert('Không thể thêm bình luận!');
-    //             }
-    //         });
-    //     });
-    //
-    //     // Hàm sử dụng Ajax để lấy danh sách bình luận và hiển thị lên trang
-    //     function loadComments() {
-    //         const postId = [[${postId}]];
-    //
-    //         $.ajax({
-    //             url: '/api/posts/' + postId + '/comments',
-    //             type: 'GET',
-    //             success: function (comments) {
-    //                 const commentSection = $('#commentSection');
-    //                 commentSection.empty();
-    //
-    //                 // Hiển thị danh sách bình luận
-    //                 $.each(comments, function (index, comment) {
-    //                     const commentItem = '<div class="comment">' +
-    //                         '<p>' + comment.content + '</p>' +
-    //                         '<button class="btn-delete-comment" data-comment-id="' + comment.id + '">Xóa</button>' +
-    //                         '</div>';
-    //                     commentSection.append(commentItem);
-    //                 });
-    //
-    //                 // Xử lý sự kiện click nút "Xóa" cho mỗi bình luận
-    //                 $('.btn-delete-comment').click(function () {
-    //                     const commentId = $(this).data('comment-id');
-    //                     deleteComment(commentId);
-    //                 });
-    //             },
-    //             error: function () {
-    //                 alert('Không thể lấy danh sách bình luận!');
-    //             }
-    //         });
-    //     }
-    //
-    //     // Hàm sử dụng Ajax để xóa bình luận
-    //     function deleteComment(commentId) {
-    //         $.ajax({
-    //             url: '/api/comments/' + commentId,
-    //             type: 'DELETE',
-    //             success: function () {
-    //                 // Đã xóa bình luận thành công, cập nhật lại danh sách bình luận
-    //                 loadComments();
-    //             },
-    //             error: function () {
-    //                 alert('Không thể xóa bình luận!');
-    //             }
-    //         });
-    //     }
-
 </script>
 </body>
 
