@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(UUID id) {
+    public Optional<User> getUserById(Long id) {
        return userRepository.findById(id);
     }
 }

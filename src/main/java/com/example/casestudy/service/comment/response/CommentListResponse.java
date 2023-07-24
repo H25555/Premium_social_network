@@ -8,13 +8,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentListResponse {
-    private UUID id;
+    private Long id;
     private User user;
     private Content content;
     private Post post;

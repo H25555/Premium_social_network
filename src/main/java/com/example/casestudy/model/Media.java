@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+
 
 @Entity
 @Data
@@ -15,8 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Media {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String url;
 
     @Enumerated(EnumType.STRING)
@@ -24,5 +24,13 @@ public class Media {
     @ManyToOne
     @JoinColumn(name = "id_content")
     @JsonIgnore
+
     private Content content;
+
+    @ManyToOne
+    @JoinColumn(name = "id_contentComment")
+    @JsonIgnore
+    private ContentComment contentComment;
+
+
 }

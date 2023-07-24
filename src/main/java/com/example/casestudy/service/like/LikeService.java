@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class LikeService {
     private final LikeRepository likeRepository;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-    public void pressLikeButton(UUID idPost, UserDetails userDetails){
+    public void pressLikeButton(Long idPost, UserDetails userDetails){
         String userName = userDetails.getUsername();
         User user = userRepository.findByEmailOrUserNameOrPhoneNumber(userName,userName,userName);
         Post post = postRepository.findById(idPost).get();

@@ -1,6 +1,21 @@
 <!doctype html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 <style>
+    .modal-content{
+        max-height: 80vh;
+        overflow: auto;
+
+    }
+    #imagePreview{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 300px;
+    }
+    #imagePreview img{
+      width: 100%;
+        height: auto;
+    }
     .new-photo {
         border-radius:50%;
         height:100%;
@@ -327,7 +342,7 @@
         <div class="mobile-header position-relative ">
             <div class="mobile-logo">
                 <a href="/index">
-                    <img src="assets/images/logo/logo-white.png" alt="logo">
+                    <img src="/assets/images/logo/logo-white.png" alt="logo">
                 </a>
             </div>
             <div class="mobile-menu w-100">
@@ -415,8 +430,8 @@
                                     <span class="active-pro">active now</span>
                                 </div>
                                 <div class="live-chat-settings ml-auto">
-                                    <button class="chat-settings"><img src="assets/images/icons/settings.png" alt=""></button>
-                                    <button class="close-btn"><img src="assets/images/icons/close.png" alt=""></button>
+                                    <button class="chat-settings"><img src="/assets/images/icons/settings.png" alt=""></button>
+                                    <button class="close-btn"><img src="/assets/images/icons/close.png" alt=""></button>
                                 </div>
                             </div>
                             <div class="message-list-inner">
@@ -548,8 +563,8 @@
                                             <p class="list-subtitle"><a href="#">adventure</a></p>
                                         </div>
                                         <button class="like-button active">
-                                            <img class="heart" src="assets/images/icons/heart.png" alt="">
-                                            <img class="heart-color" src="assets/images/icons/heart-color.png" alt="">
+                                            <img class="heart" src="/assets/images/icons/heart.png" alt="">
+                                            <img class="heart-color" src="/assets/images/icons/heart-color.png" alt="">
                                         </button>
                                     </li>
                                     <li class="unorder-list">
@@ -568,8 +583,8 @@
                                             <p class="list-subtitle"><a href="#">food</a></p>
                                         </div>
                                         <button class="like-button">
-                                            <img class="heart" src="assets/images/icons/heart.png" alt="">
-                                            <img class="heart-color" src="assets/images/icons/heart-color.png" alt="">
+                                            <img class="heart" src="/assets/images/icons/heart.png" alt="">
+                                            <img class="heart-color" src="/assets/images/icons/heart-color.png" alt="">
                                         </button>
                                     </li>
                                     <li class="unorder-list">
@@ -588,8 +603,8 @@
                                             <p class="list-subtitle"><a href="#">drama</a></p>
                                         </div>
                                         <button class="like-button">
-                                            <img class="heart" src="assets/images/icons/heart.png" alt="">
-                                            <img class="heart-color" src="assets/images/icons/heart-color.png" alt="">
+                                            <img class="heart" src="/assets/images/icons/heart.png" alt="">
+                                            <img class="heart-color" src="/assets/images/icons/heart-color.png" alt="">
                                         </button>
                                     </li>
                                     <li class="unorder-list">
@@ -608,8 +623,8 @@
                                             <p class="list-subtitle"><a href="#">fitness</a></p>
                                         </div>
                                         <button class="like-button">
-                                            <img class="heart" src="assets/images/icons/heart.png" alt="">
-                                            <img class="heart-color" src="assets/images/icons/heart-color.png" alt="">
+                                            <img class="heart" src="/assets/images/icons/heart.png" alt="">
+                                            <img class="heart-color" src="/assets/images/icons/heart-color.png" alt="">
                                         </button>
                                     </li>
                                 </ul>
@@ -733,7 +748,7 @@
                             <!-- share content box end -->
 
                             <!-- Modal start -->
-                            <div class="modal fade" id="textbox" aria-labelledby="textbox">
+                            <div class="post-model modal fade" id="textbox" aria-labelledby="textbox">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form  id="postForm" method="post" onsubmit="createPost(event)" enctype="multipart/form-data">
@@ -745,11 +760,15 @@
                                             </div>
                                             <div class="modal-body custom-scroll">
                                                 <textarea name="posttextcontent" class="share-field-big custom-scroll" placeholder="Say Something"></textarea>
+                                                <div id="imagePreview">
+                                                    <!-- Ảnh được hiển thị ở đây -->
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="post-share-btn" data-dismiss="modal">cancel</button>
                                                 <button type="submit" class="post-share-btn">post</button>
                                                 <input  type="file" name="fileInput" id="fileInput" accept="image/*,video/*" onchange="uploadFile()" multiple>
+
                                             </div>
                                         </form>
                                     </div>
@@ -1604,6 +1623,52 @@
 <!-- JS
 ============================================ -->
 
+<!--<script th:inline="javascript">-->
+<!--    function uploadFile() {-->
+<!--        const fileInput = document.getElementById("fileInput");-->
+<!--        const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"];-->
+<!--        const files = fileInput.files;-->
+
+<!--        for (let i = 0; i < files.length; i++) {-->
+<!--            const file = files[i];-->
+<!--            const fileType = file.type;-->
+
+<!--            if (!allowedTypes.includes(fileType)) {-->
+<!--                alert("Chỉ chọn các tệp ảnh (JPEG, PNG, GIF) hoặc video (MP4, QuickTime).");-->
+<!--                fileInput.value = ""; // Xóa tệp không hợp lệ khỏi ô chọn tệp-->
+<!--                return false;-->
+<!--            }-->
+<!--        }-->
+
+<!--        return true;-->
+<!--    }-->
+<!--    function createPost(e){-->
+<!--        e.preventDefault();-->
+<!--        const form = document.getElementById("postForm");-->
+<!--        const formData = new FormData(form);-->
+<!--        const data = Object.fromEntries(formData.entries());-->
+<!--        console.log(data);-->
+<!--        $.ajax({-->
+<!--            url: "http://localhost:8080/api/posts/create",-->
+<!--            type: "POST",-->
+<!--            headers: {-->
+<!--                'Accept': 'application/json',-->
+<!--            },-->
+<!--            processData: false,-->
+<!--            contentType: false,-->
+<!--            data: formData,-->
+<!--            success: function (response) {-->
+<!--                console.log(response);-->
+<!--            },-->
+<!--            error: function (error) {-->
+<!--                console.log(error);-->
+<!--            }-->
+<!--        });-->
+
+<!--    }-->
+
+
+<!--</script>-->
 
 <!-- Modernizer JS -->
 <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
@@ -1685,7 +1750,7 @@
             type: "get",
             url: "http://localhost:8080/api/posts",
             success: function (datas) {
-                console.log("Data", datas)
+
                 renderDatas(datas)
 
             },
@@ -1706,7 +1771,7 @@
     }
 
     function renderData1(data) {
-        console.log("data.content.media.url", data.content.media[0].url)
+        console.log(data)
         let mediaHtml = ``;
         data.content.media.forEach((media) => {
             mediaHtml += `<img src=${media.url} alt="post image">`;
@@ -1716,7 +1781,7 @@
                     <div class="post-title d-flex align-items-center">
                         <!-- profile picture end -->
                         <div class="profile-thumb">
-                            <a href="assets/images/photos/photo2.jpg">
+                            <a>
                                 <figure class="profile-thumb-middle" >
                                     <img  class="new-photo" src="assets/images/photos/photo2.jpg" alt="profile picture">
                                 </figure>
@@ -1750,7 +1815,7 @@
                         </p>
                         <div class="post-thumb-gallery">
                             <figure class="post-thumb img-popup">
-                                <a href="assets/images/photos/photo5.jpg">
+                                <a>
                                     ${mediaHtml}
                                 </a>
                             </figure>
@@ -1790,8 +1855,8 @@
 
                             <div class="share-content-box w-100">
                                 <form class="share-text-box" id="commentForm">
-                                    <textarea name="content" id="comment" class="share-text-field" placeholder="Say Something"></textarea>
-                                    <button type="submit" class="btn-share" id="comment-submit">Sent</button>
+                                    <textarea name="content" id="comment${data.id}" class="share-text-field" placeholder="Say Something"></textarea>
+                                    <a type="submit" class="btn-share" onclick="submitComment('${data.id}')" >Sent</a>
                                 </form>
                             </div>
                         </div>
@@ -1808,13 +1873,13 @@
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
-                                <div class="comment-info">
+                                <div class="comment-info" id="commentSection">
                                     <p  class="comment" >Cháy Sườn</p>
                                     <button onclick="showReply()">
                                         <span class="bi bi-reply" >Reply</span>
                                     </button>
                                     <span class="time-comment">1 phút trước</span>
-
+                                    </div>
                                     <div id="reply-comment">
                                         <div class="share-box-inner">
                                             <!-- profile picture end -->
@@ -1844,45 +1909,70 @@
                     </div>
                 </div>`
     }
-
-
-
 </script>
-<script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:inline="javascript">
+
     const commentsCont = document.querySelector('#comment-container')
     const submit = document.querySelector('#comment-submit')
-    const comment = document.querySelector('#comment')
+
     const userName = document.querySelector('#user')
     const reply = document.querySelector('.share-box-inner')
 
-    submit.addEventListener('click', submitComment)
+    // submit.addEventListener('click', submitComment)
 
     CommentArr = []
     let positiveComment = false
 
-    function submitComment(e){
+    function submitComment(id){
         // lấy user
         // const userForm = userName.value
         // lấy bình luận
-        const commentForm = comment.value
+        const comment = document.querySelector('#comment'+id)
+        const value = comment.value
         // nếu nhập vào là rỗng
-        if(commentForm !== ''){
+        if(value !== ''){
+            // const data= {
+            //     "content": {
+            //         "text" : value
+            //     },
+            //      "post": {
+            //             "id": id
+            //                 }
+            // }
             // tạo mới 1 bình luận
-            newComment = {
-                "id": Math.floor((Math.random() * 1000)+ 1),
-                // "userName": userForm,
-                "userComment": commentForm,
-                "typeOfComment": positiveComment
-            }
-            // thêm 1 bình luận mới vào array
-            CommentArr.push(newComment)
-            // xóa form cũ
-            resetForm()
-            // thêm bình luận vào list
-            createComment(newComment)
-            commentsCont.style.display = 'block'
+
+            $.ajax({
+                    url: '/api/comments',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        content: value,
+                        id: id
+                    }),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        newComment = {
+                            "id": Math.floor((Math.random() * 1000)+ 1),
+                            // "userName": userForm,
+                            "userComment": commentForm,
+                            "typeOfComment": positiveComment
+                        }
+                        // thêm 1 bình luận mới vào array
+                        CommentArr.push(response)
+                        // xóa form cũ
+                        resetForm()
+                        // thêm bình luận vào list
+                        createComment(newComment)
+                        commentsCont.style.display = 'block'
+                    },
+                    error: function () {
+                        alert('Không thể thêm bình luận!');
+                    }
+                });
+
+
         }
-        e.preventDefault()
     }
 
     function resetForm(){
@@ -1912,32 +2002,9 @@
                                         </p>
                                         <button onclick="showReply()">
                                             <span class="bi bi-reply">Reply</span>
-
-<!--                                        <div id="reply-comment">-->
-<!--                                        <div class="share-box-inner">-->
-<!--                                            &lt;!&ndash; profile picture end &ndash;&gt;-->
-<!--                                            <div class="profile-thumb">-->
-<!--                                                <a href="#">-->
-<!--                                                    <figure class="profile-thumb-middle" >-->
-<!--                                                        <img  class="new-photo" id="userReply" src="assets/images/photos/photo1.jpg"/>-->
-<!--                                                    </figure>-->
-<!--                                                </a>-->
-<!--                                            </div>-->
-<!--                                            &lt;!&ndash; profile picture end &ndash;&gt;-->
-
-<!--                                            <div class="share-content-box w-100">-->
-<!--                                                <form class="share-text-box">-->
-<!--                                                    <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>-->
-<!--                                                    <button type="submit" class="btn-share" id="submit">Sent</button>-->
-<!--                                                </form>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        </div>-->
                                         </button>
                                               <span class="time-comment">1 phút trước</span>
-<!--</div>-->
                                 </div>`
-        // div.insertBefore(html, div.firstChild);
         commentsCont.insertAdjacentElement('afterbegin', div)
     }
 
@@ -1959,54 +2026,85 @@
         }
     }
 
-        $(document).ready(function () {
-        const postId = [[${postId}]];
-        $.ajax(
-    {
-        url: 'api/posts/' + postId + '/comment',
-        type: 'GET',
-        success: function (comment) {
-        const commentSection = $('commentSection');
-        commentSection.empty();
-        $.each(comment, function (index, comment) {
-        const commentItem = '<p>' + comment.user.username + ':' + comment.content + '</p>';
-        commentSection.append(commentItem);
-    })
-    }
-    }
-        )
-    });
-        $('commentForm').submit(function (event) {
-        event.preventDefault();
-        const formData = $(this).serialize()
-        const postId = [[${postId}]];
-        $.ajax({
-        url: '/api/posts' + postId + '/comments',
-        type: 'POST',
-        data: formData,
-        success: function (response) {
-        $.ajax({
-        url: 'api/posts' + postId + '/comments',
-        type: 'GET',
-        success: function (comments) {
-        const commentSection = $('#commentSection');
-        commentSection.empty();
-        $.each(comments, function (index, comment) {
-        const commentItem = '<p>' + comment.user.username + ': ' + comment.content + '</p>';
-        commentSection.append(commentItem);
-    });
-    },
-        error: function () {
-        alert('Không thể lấy danh sách bình luận sau khi thêm mới!');
-    }
-    });
-    },
-        error: function () {
-        alert('Không thể thêm bình luận!');
-    }
-    })
-    });
-
+    // $(document).ready(function() {
+    //     // Load danh sách bình luận khi trang được tải
+    //     loadComments();
+    //     $('#submit').click(function (event) {
+    //         event.preventDefault();
+    //         const content = $('#commentReply').val();
+    //         const postId = [[${postId}]];
+    //
+    //         // Tạo đối tượng bình luận mới
+    //         const newComment = {
+    //             content: content,
+    //             post: {
+    //                 id: postId
+    //             }
+    //         };
+    //
+    //         // Gửi yêu cầu POST để thêm mới bình luận
+    //         $.ajax({
+    //             url: '/api/comments',
+    //             type: 'POST',
+    //             data: JSON.stringify(newComment),
+    //             contentType: 'application/json',
+    //             success: function (response) {
+    //                 // Đã thêm mới bình luận thành công, cập nhật lại danh sách bình luận
+    //                 loadComments();
+    //                 $('#commentReply').val(''); // Xóa nội dung trong textarea sau khi thêm bình luận thành công
+    //             },
+    //             error: function () {
+    //                 alert('Không thể thêm bình luận!');
+    //             }
+    //         });
+    //     });
+    //
+    //     // Hàm sử dụng Ajax để lấy danh sách bình luận và hiển thị lên trang
+    //     function loadComments() {
+    //         const postId = [[${postId}]];
+    //
+    //         $.ajax({
+    //             url: '/api/posts/' + postId + '/comments',
+    //             type: 'GET',
+    //             success: function (comments) {
+    //                 const commentSection = $('#commentSection');
+    //                 commentSection.empty();
+    //
+    //                 // Hiển thị danh sách bình luận
+    //                 $.each(comments, function (index, comment) {
+    //                     const commentItem = '<div class="comment">' +
+    //                         '<p>' + comment.content + '</p>' +
+    //                         '<button class="btn-delete-comment" data-comment-id="' + comment.id + '">Xóa</button>' +
+    //                         '</div>';
+    //                     commentSection.append(commentItem);
+    //                 });
+    //
+    //                 // Xử lý sự kiện click nút "Xóa" cho mỗi bình luận
+    //                 $('.btn-delete-comment').click(function () {
+    //                     const commentId = $(this).data('comment-id');
+    //                     deleteComment(commentId);
+    //                 });
+    //             },
+    //             error: function () {
+    //                 alert('Không thể lấy danh sách bình luận!');
+    //             }
+    //         });
+    //     }
+    //
+    //     // Hàm sử dụng Ajax để xóa bình luận
+    //     function deleteComment(commentId) {
+    //         $.ajax({
+    //             url: '/api/comments/' + commentId,
+    //             type: 'DELETE',
+    //             success: function () {
+    //                 // Đã xóa bình luận thành công, cập nhật lại danh sách bình luận
+    //                 loadComments();
+    //             },
+    //             error: function () {
+    //                 alert('Không thể xóa bình luận!');
+    //             }
+    //         });
+    //     }
 
 </script>
 </body>

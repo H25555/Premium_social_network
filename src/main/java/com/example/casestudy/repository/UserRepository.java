@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, Long> {
     public User findByEmailOrUserNameOrPhoneNumber(String email, String userName, String phoneNumber);
     Optional<User> findByUserNameIgnoreCaseOrEmailIgnoreCaseOrPhoneNumber(String userName, String email, String phoneNumber);
     boolean existsByUserNameIgnoreCase(String userName);

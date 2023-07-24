@@ -1,5 +1,6 @@
 package com.example.casestudy.service.post;
 
+import com.example.casestudy.model.Comment;
 import com.example.casestudy.model.Post;
 import com.example.casestudy.model.User;
 import com.example.casestudy.repository.PostRepository;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
+
 
 @Service
 @AllArgsConstructor
@@ -36,5 +40,8 @@ public class PostService {
         }
         Post postCreate = postRepository.save(post);
         return postCreate;
+    }
+    public Optional<Post> getPostById(Long id){
+        return postRepository.findById(id);
     }
 }

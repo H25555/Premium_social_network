@@ -7,24 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Content {
+public class ContentComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne(mappedBy = "content", cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_post")
+    @OneToOne(mappedBy = "contentComment", cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_content_conmment")
     @JsonIgnore
-    private Post post;
+    private Comment comment;
+
     @Column(columnDefinition = ("LONGTEXT"))
     private String text;
 
-    @OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "contentComment", cascade = CascadeType.ALL)
     private List<Media> media;
 }

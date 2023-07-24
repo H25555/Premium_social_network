@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Entity
 @Data
@@ -16,8 +16,8 @@ import java.util.UUID;
 @Table(name = "likes")
 public class Like {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;

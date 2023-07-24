@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
+
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, UUID> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 //@Query("select Comment from Comment where Comment.post.id = : postId")
 //
-//    List<Comment> getCommentByPostId( UUID postId);
+//    List<Comment> getCommentByPostId( Long postId);
     List<Comment> findByPostContaining(Post post);
 }

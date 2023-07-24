@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+
 
 @Entity
 @Data
@@ -14,17 +14,18 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_user")
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "id_content")
+    @JoinColumn(name = "id_content_conmment")
     @JsonIgnore
-    private Content content;
+    private ContentComment contentComment;
+
 
     @ManyToOne
     @JoinColumn(name = "id_post")

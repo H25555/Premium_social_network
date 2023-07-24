@@ -14,7 +14,8 @@ import java.util.List;
 
 @Service
 public class UploadService {
-    String UPLOAD_DIR = "E:\\CODEGYM\\git_clone_module4\\Premium_social_network\\src\\main\\resources\\assets\\postimage\\";
+
+    String UPLOAD_DIR = "D:\\module_4\\clone_casestudy\\Premium_social_network\\src\\main\\resources\\assets\\postimage\\";
     String SAVE_UPLOAD_DIR = "\\assets\\postimage\\";
     public List<PostSaveRequest.ContentSaveRequest.MediaSaveRequest> addFileToRequest(MultipartFile[] multipartFiles){
         List<PostSaveRequest.ContentSaveRequest.MediaSaveRequest> list = new ArrayList<>();

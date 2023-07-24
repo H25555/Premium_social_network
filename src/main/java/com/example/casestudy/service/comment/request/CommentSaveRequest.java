@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentSaveRequest {
 private String content;
+    private String id;
 }
