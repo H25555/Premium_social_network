@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -35,4 +36,6 @@ public class Comment {
     @JoinColumn(name = "id_parent_comment")
     @JsonIgnore
     private Comment parentComment;
+
+    private LocalDateTime comment_date;
 }

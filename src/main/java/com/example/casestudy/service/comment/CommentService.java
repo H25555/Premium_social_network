@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.OpenOption;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ comment.setPost(post);
         content.setText(commentSaveRequest.getContent());
         contentCommentRepo.save(content);
 comment.setContentComment(content);
+        comment.setComment_date(LocalDateTime.now());
         return commentRepository.save(comment);
     }
     public Optional<Comment> getCommentById(Long id){
