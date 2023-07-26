@@ -82,9 +82,11 @@ function renderData1(data) {
     let countComment = data.comments?  data.comments.length : 0
     let mediaHtml = ``;
     let commentBlock = ``;
+    if(data.content.media !== null){
     data.content.media.forEach((media) => {
         mediaHtml += `<img src=${media.url} alt="post image">`;
     });
+    }
     if(data.comments && data.comments.length > 0){
         data.comments.reverse().forEach(comment => {
             commentBlock += `

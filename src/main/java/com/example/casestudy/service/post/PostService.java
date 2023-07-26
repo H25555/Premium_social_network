@@ -35,8 +35,10 @@ public class PostService {
         post.setUser(user);
         post.setLikeCount(0);
         post.setCreate_date(LocalDateTime.now());
-        for (var item: post.getContent().getMedia()){
-            item.setContent(post.getContent());
+        if(post.getContent().getMedia() != null) {
+            for (var item : post.getContent().getMedia()) {
+                item.setContent(post.getContent());
+            }
         }
         Post postCreate = postRepository.save(post);
         return postCreate;

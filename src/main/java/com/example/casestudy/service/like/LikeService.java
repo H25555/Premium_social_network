@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -38,5 +39,8 @@ public class LikeService {
             }
             likeRepository.save(like);
         }
+    }
+    public List<Like> getListLikeByUser(User user){
+        return likeRepository.findAllByUser(user);
     }
 }

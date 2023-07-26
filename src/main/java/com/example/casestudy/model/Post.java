@@ -32,6 +32,8 @@ public class Post {
     @ColumnDefault("0")
     @Column(name = "like_count")
     private Integer likeCount;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Like> likes;
 
     private LocalDateTime create_date;
 
