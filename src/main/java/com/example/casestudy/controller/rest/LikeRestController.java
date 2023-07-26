@@ -7,8 +7,10 @@ import com.example.casestudy.service.like.LikeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,10 +22,9 @@ public class LikeRestController {
     private final UserRepository userRepository;
     private final LikeService likeService;
 
-    @GetMapping
-    public ResponseEntity<?> getAllPostLikeByUser(Authentication authentication){
-        User user = userRepository.findByUserName(authentication.getName());
-        List<Like> likes = likeService.getListLikeByUser(user);
-        return ResponseEntity.ok(likes);
-    }
+   @GetMapping
+    public void pressLikeButton(@RequestParam("idPost") long idPost, Authentication authentication){
+       UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+       likeService.pressLikeButton(idPost,userDetails);
+   }
 }

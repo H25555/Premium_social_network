@@ -27,6 +27,7 @@ public class LikeService {
         Post post = postRepository.findById(idPost).get();
         Like like = likeRepository.findByUserAndPost(user,post);
         if (like == null){
+            like = new Like();
             like.setPost(post);
             like.setUser(user);
             like.setStatus(Status.LIKE);

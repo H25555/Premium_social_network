@@ -84,13 +84,18 @@ function renderDatas(datas) {
 }
 
 function renderData1(data) {
+
     let time = timeNow(data.create_date)
     let countComment = data.comments ? data.comments.length : 0
     let mediaHtml = ``;
     let commentBlock = ``;
-    let heartIcon = '<img class="heart" src="assets/images/icons/heart.png" alt="">';
+
+
+    let heartIcon = `<img class="heart${data.id}" src="assets/images/icons/heart.png" alt="" style="display: inline-block">`;
+    let revHeart = `<img class="heart-color${data.id}" src="assets/images/icons/heart-color.png" alt="" style="display: none">`;
     if (data.like === true){
-        heartIcon = '<img className="heart-color" src="assets/images/icons/heart-color.png" alt="">';
+        heartIcon = `<img class="heart-color${data.id}" src="assets/images/icons/heart-color.png" alt="" style="display: inline-block">`;
+        revHeart = `<img class="heart${data.id}" src="assets/images/icons/heart.png" alt="" style="display: none">`;
         }
 
     if(data.content.media !== null){
@@ -226,9 +231,10 @@ function renderData1(data) {
                             </figure>
                         </div>
                         <div class="post-meta">
-                            <button class="post-meta-like">
+                            <button class="post-meta-like" onclick="like(${data.id},${data.likeCount})">
                                 ${heartIcon}
-                                <span>${data.likeCount} like</span>
+                                ${revHeart}
+                                <span id="likeCount${data.id}">${data.likeCount} like</span>
                                 <strong>201</strong>
                             </button>
                             <ul class="comment-share-meta">
