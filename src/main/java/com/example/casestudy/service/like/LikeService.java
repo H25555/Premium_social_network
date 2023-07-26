@@ -43,4 +43,10 @@ public class LikeService {
     public List<Like> getListLikeByUser(User user){
         return likeRepository.findAllByUser(user);
     }
+    public Like getPostLikeByUser(User user, Post post){
+        return likeRepository.findByUserAndPost(user,post);
+    }
+    public int countLike(Post post){
+        return likeRepository.countLikeByPost(post);
+    }
 }

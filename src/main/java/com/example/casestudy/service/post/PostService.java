@@ -33,7 +33,6 @@ public class PostService {
         String userName = userDetails.getUsername();
         User user = userRepository.findByEmailOrUserNameOrPhoneNumber(userName,userName,userName);
         post.setUser(user);
-        post.setLikeCount(0);
         post.setCreate_date(LocalDateTime.now());
         if(post.getContent().getMedia() != null) {
             for (var item : post.getContent().getMedia()) {

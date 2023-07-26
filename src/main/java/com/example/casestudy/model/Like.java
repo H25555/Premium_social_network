@@ -1,6 +1,7 @@
 package com.example.casestudy.model;
 
 import com.example.casestudy.model.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Like {
     private User user;
     @ManyToOne
     @JoinColumn(name = "id_post")
+    @JsonIgnore
     private Post post;
     @Enumerated(EnumType.STRING)
     private Status status;

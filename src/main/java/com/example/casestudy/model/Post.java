@@ -29,9 +29,6 @@ public class Post {
     @JoinColumn(name = "id_content")
     private Content content;
 
-    @ColumnDefault("0")
-    @Column(name = "like_count")
-    private Integer likeCount;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Like> likes;
 

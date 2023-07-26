@@ -38,11 +38,24 @@ public class PostRestController {
 
 
     @GetMapping
-    public ResponseEntity<?> getAllPosts() {
-
+    public ResponseEntity<?> getAllPosts(Authentication authentication) {
         List<Post> posts = postService.getAllPost();
+        List<PostResponse> responses = new ArrayList<>();
+        User user = userRepository.findByUserName(authentication.getName());
+        for (Post post: posts) {
+            PostResponse response = AppUtils.mapper.map(post,PostResponse.class);
+            Like like = likeService.getPostLikeByUser(user, post);
+            if (like != null){
+                response.setLike(true);
+            } else {
+                response.setLike(false);
+            }
+            int likeCount = likeService.countLike(post);
+            response.setLikeCount(likeCount);
+            responses.add(response);
 
-        return ResponseEntity.ok(posts);
+        }
+        return ResponseEntity.ok(responses);
     }
 
     @PostMapping("/create")

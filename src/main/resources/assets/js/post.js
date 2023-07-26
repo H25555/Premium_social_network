@@ -78,6 +78,11 @@ function renderDatas(datas) {
 }
 
 function renderData1(data) {
+    let heartIcon = '<img class="heart" src="assets/images/icons/heart.png" alt="">';
+    if (data.like === true){
+        heartIcon = '<img className="heart-color" src="assets/images/icons/heart-color.png" alt="">';
+        }
+    // let likesCount = data.likes?  data.likes.length : 0
    let time = timeNow(data.create_date)
     let countComment = data.comments?  data.comments.length : 0
     let mediaHtml = ``;
@@ -181,7 +186,7 @@ function renderData1(data) {
                         </div>
                         <div class="post-meta">
                             <button class="post-meta-like">
-                                <i class="bi bi-heart-beat"></i>
+                                ${heartIcon}
                                 <span>${data.likeCount} like</span>
                                 <strong>201</strong>
                             </button>
