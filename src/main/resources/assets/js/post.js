@@ -78,15 +78,18 @@ function renderDatas(datas) {
 }
 
 function renderData1(data) {
+    let time = timeNow(data.create_date)
+    let countComment = data.comments?  data.comments.length : 0
+    let mediaHtml = ``;
+    let commentBlock = ``;
     let heartIcon = '<img class="heart" src="assets/images/icons/heart.png" alt="">';
     if (data.like === true){
         heartIcon = '<img className="heart-color" src="assets/images/icons/heart-color.png" alt="">';
         }
     // let likesCount = data.likes?  data.likes.length : 0
-   let time = timeNow(data.create_date)
-    let countComment = data.comments?  data.comments.length : 0
-    let mediaHtml = ``;
-    let commentBlock = ``;
+
+
+
     if(data.content.media !== null){
     data.content.media.forEach((media) => {
         mediaHtml += `<img src=${media.url} alt="post image">`;
@@ -95,7 +98,7 @@ function renderData1(data) {
     if(data.comments && data.comments.length > 0){
         data.comments.reverse().forEach(comment => {
             commentBlock += `
-                     <div class="form-comment" >
+                     <div id="form-comment-${comment.id}" class="form-comment" >
                                 <!-- profile picture end -->
                                 <div class="profile-thumb">
                                     <a href="#">
@@ -106,8 +109,17 @@ function renderData1(data) {
                                 </div>
                                 <!-- profile picture end -->
 
-                                <div class="comment-info" id="commentSection">
+                                <div class="comment-info " id="commentSection${comment.id}">
                                     <p  class="comment" >${comment.contentComment.text}</p>
+                                   <div class="comment-edit">
+                                    <textarea class="edit-textarea"  >${comment.contentComment.text}</textarea>
+                                    <div>
+                                    <button type="button" class="btn-share" onclick="submitEditComment(${comment.id})">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                    <button type="button" onclick="cancelReply(${comment.id})" ">Hủy</button>
+</div>
+</div>
                                     <button onclick="showReply(${comment.id})">
                                         <span class="bi bi-reply" >Reply</span>
                                     </button>
@@ -134,8 +146,21 @@ function renderData1(data) {
                                             </div>
                                         </div>
                                     </div>
-
-                                </div> `
+                                  
+                                        <div class="comment-icon">
+                                            <i class="fa-solid fa-ellipsis"></i>                           
+                                           
+                                            <div class="comment-reply-action">
+                                             <div class=" buton-editer">
+                                                     <button type="button" onclick="editCommentFromPost(${comment.id})">Chỉnh sửa </button>
+                                             </div>   
+                                            <div class=" buton-editer">
+                                                     <button type="button" onclick="removeCommentFromPost(${comment.id})">Xóa</button>
+                                              </div>  
+</div>
+                                     </div>   
+                                </div>
+                                 `
         });
     }
 
@@ -192,7 +217,7 @@ function renderData1(data) {
                             </button>
                             <ul class="comment-share-meta">
                                 <li onclick="showComment(${data.id})">
-                                    <button class="post-comment" >
+                      <button class="post-comment" >
                                         <i class="bi bi-chat-bubble" ></i>
                                         <span id="countComment">${countComment}</span>
                                     </button>

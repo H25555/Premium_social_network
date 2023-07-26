@@ -1,11 +1,11 @@
-
 const commentsCont = document.querySelector('#comment-container')
 const submit = document.querySelector('#comment-submit')
+let API_COMMENT = 'http://localhost:8080/api/comments';
 function showComment(id) {
-    const comment = document.getElementById('comment-'+id);
-    if(comment.style.display === 'none'){
+    const comment = document.getElementById('comment-' + id);
+    if (comment.style.display === 'none') {
         comment.style.display = 'block'
-    }else {
+    } else {
         comment.style.display = 'none'
     }
 
@@ -14,12 +14,10 @@ function showComment(id) {
 function getCommentsForPost(postId) {
     $.ajax({
         url: `/api/comments`,
-        type: 'GET',
-        data: {
+        type: 'GET', data: {
             postId: postId
 
-        },
-        success: function (comments) {
+        }, success: function (comments) {
             const commentsContainer = $(`#comment_${postId}`);
             commentsContainer.empty();
 
@@ -50,42 +48,39 @@ function getCommentsForPost(postId) {
 
                 commentsContainer.append(commentDiv);
             });
-        },
-        error: function () {
+        }, error: function () {
             alert('Error getting comments');
         }
     });
 }
 
-function submitComment(id){
+function submitComment(id) {
     let time = timeNow(id.comment_date)
     // lấy user
     // const userForm = userName.value
     // lấy bình luận
-    const comment = document.querySelector('#comment'+id)
+    const comment = document.querySelector('#comment' + id)
     const value = comment.value
     // nếu nhập vào là rỗng
-    if(value !== ''){
+    if (value !== '') {
         $.ajax({
             url: '/api/comments',
             type: 'POST',
             data: JSON.stringify({
-                content: value,
-                id: id
-            }),
-            contentType: 'application/json',
-            success: function (response) {
+                content: value, id: id
+            }), contentType: 'application/json', success: function (response) {
                 console.log(response)
                 // Đã thêm mới bình luận thành công, cập nhật lại danh sách bình luận
                 // getCommentsForPost(id);
 
                 // Xóa nội dung trong textarea sau khi thêm bình luận thành công
 
-                document.querySelector('#comment-'+id).style.display = 'block'
-                document.querySelector('#comment'+id).value=''
+                document.querySelector('#comment-' + id).style.display = 'block'
+                document.querySelector('#comment' + id).value = ''
 
                 const divNew = document.createElement('div')
-                divNew.classList ="form-comment"
+                divNew.classList = "form-comment"
+                divNew.id = `form-comment-${response.id}`;
                 // 'comment-container'
                 divNew.innerHTML += `
 
@@ -127,11 +122,10 @@ function submitComment(id){
                                         </div>
                                     </div>
                                             `
-                document.querySelector('#comment-'+id).insertAdjacentElement('afterbegin', divNew);
+                document.querySelector('#comment-' + id).insertAdjacentElement('afterbegin', divNew);
                 let countComment = +document.getElementById("countComment").textContent;
                 document.getElementById("countComment").innerText = countComment + 1;
-            },
-            //thêm mới vào div
+            }, //thêm mới vào div
             error: function () {
                 alert('Không thể thêm bình luận!');
             }
@@ -139,3 +133,74 @@ function submitComment(id){
     }
 }
 
+function editCommentFromPost(id) {
+    const commentDiv = document.getElementById(`commentSection${id}`);
+    const commentTextElement = commentDiv.querySelector(".comment");
+    const commentEditElement = commentDiv.querySelector(".comment-edit");
+    const commentTextareaElement = commentDiv.querySelector(`.edit-textarea`);
+
+    commentTextElement.style.display = "none"
+    commentEditElement.style.display = "flex"
+    commentTextareaElement.focus();
+
+}
+
+function cancelReply(id) {
+    const commentDiv = document.getElementById(`commentSection${id}`);
+    const commentTextElement = commentDiv.querySelector(".comment");
+    const commentEditElement = commentDiv.querySelector(".comment-edit");
+
+
+    commentTextElement.style.display = "block"
+    commentEditElement.style.display = "none"
+
+}
+
+
+function submitEditComment(id) {
+    const commentDiv = document.getElementById(`commentSection${id}`);
+    const commentTextElement = commentDiv.querySelector(".comment");
+    const commentEditElement = commentDiv.querySelector(".comment-edit");
+    const commentTextareaElement = commentDiv.querySelector(`.edit-textarea`);
+    const textarea =commentTextareaElement.value
+    if (textarea !== '') {
+        $.ajax({
+            url: API_COMMENT + '/' + id,
+            type: 'PUT',
+            data: JSON.stringify({
+                content: textarea, id: id
+            }), contentType: 'application/json',
+            success: function (response) {
+                console.log(response)
+                commentTextElement.style.display = "block"
+                commentEditElement.style.display = "none"
+                commentTextElement.innerText = textarea;
+            },
+            error: function () {
+                alert('Không thể thêm bình luận!');
+            }
+        });
+    }
+}
+function deleteCommentById(id) {
+
+    $.ajax({
+        url: API_COMMENT + '/' + id,
+        type: 'DELETE',
+    }).done(response => {
+        const container = document.getElementById("comment-"+response.post.id);
+        const div =document.getElementById("form-comment-"+ id);
+
+        if (div) {
+            container.removeChild(div);
+        }
+        let countComment = +document.getElementById("countComment").textContent;
+        document.getElementById("countComment").innerText = countComment - 1;
+    })
+}
+
+function removeCommentFromPost(id) {
+    if (confirm("Are you sure you want to delete this comment?")) {
+        deleteCommentById(id);
+    }
+}

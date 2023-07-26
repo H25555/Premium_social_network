@@ -7,6 +7,7 @@ import com.example.casestudy.repository.PostRepository;
 import com.example.casestudy.repository.UserRepository;
 import com.example.casestudy.service.comment.request.CommentSaveRequest;
 import com.example.casestudy.service.user.UserService;
+import com.example.casestudy.utils.AppUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,19 @@ comment.setContentComment(content);
     public List<Comment> getCommentByPostId(Long id){
 //        Post post = postRepository.findById(id).get();
         return commentRepository.findByPostId(id);
+    }
+    public Comment update(CommentSaveRequest request,Long id){
+        Comment comment = commentRepository.findById(id).get();
+        comment.setComment_date(LocalDateTime.now());
+       ContentComment contentComment = comment.getContentComment();
+       contentComment.setText(request.getContent());
+        comment.setContentComment(contentComment);
+       return commentRepository.save(comment);
+    }
+
+    public Comment delete(Long id) {
+        Comment comment =commentRepository.findById(id).get();
+        commentRepository.deleteById(id);
+        return comment;
     }
 }
