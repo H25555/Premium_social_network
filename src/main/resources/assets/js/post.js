@@ -1,3 +1,12 @@
+
+// function showPost() {
+//     const post = document.getElementById('textbox');
+//     if(post.style.display === 'block'){
+//         post.style.display = 'none'
+//     }else {
+//         post.style.display = 'block'
+//     }
+// }
 function uploadFile() {
     const fileInput = document.getElementById("fileInput");
     const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"];
@@ -13,7 +22,6 @@ function uploadFile() {
             return false;
         }
     }
-
     return true;
 
 }
@@ -47,7 +55,6 @@ function createPost(e){
 
 
 function handleRenderDatas() {
-
     $.ajax({
         type: "get",
         dataType: 'json',
@@ -58,7 +65,6 @@ function handleRenderDatas() {
             }
             console.log(datas)
             renderDatas(datas)
-
         },
         error: function (data, textStatus, errorThrown) {
             console.log("Data")
@@ -79,16 +85,13 @@ function renderDatas(datas) {
 
 function renderData1(data) {
     let time = timeNow(data.create_date)
-    let countComment = data.comments?  data.comments.length : 0
+    let countComment = data.comments ? data.comments.length : 0
     let mediaHtml = ``;
     let commentBlock = ``;
     let heartIcon = '<img class="heart" src="assets/images/icons/heart.png" alt="">';
     if (data.like === true){
         heartIcon = '<img className="heart-color" src="assets/images/icons/heart-color.png" alt="">';
         }
-    // let likesCount = data.likes?  data.likes.length : 0
-
-
 
     if(data.content.media !== null){
     data.content.media.forEach((media) => {
@@ -97,37 +100,12 @@ function renderData1(data) {
     }
     if(data.comments && data.comments.length > 0){
         data.comments.reverse().forEach(comment => {
-            commentBlock += `
-                     <div id="form-comment-${comment.id}" class="form-comment" >
-                                <!-- profile picture end -->
-                                <div class="profile-thumb">
-                                    <a href="#">
-                                        <figure class="profile-thumb-middle" >
-                                            <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
-                                        </figure>
-                                    </a>
-                                </div>
-                                <!-- profile picture end -->
-
-                                <div class="comment-info " id="commentSection${comment.id}">
-                                    <p  class="comment" >${comment.contentComment.text}</p>
-                                   <div class="comment-edit">
-                                    <textarea class="edit-textarea"  >${comment.contentComment.text}</textarea>
-                                    <div>
-                                    <button type="button" class="btn-share" onclick="submitEditComment(${comment.id})">
-                                    <i class="fa-solid fa-paper-plane"></i>
-                                    </button>
-                                    <button type="button" onclick="cancelReply(${comment.id})" ">Hủy</button>
-</div>
-</div>
-                                    <button onclick="showReply(${comment.id})">
-                                        <span class="bi bi-reply" >Reply</span>
-                                    </button>
-                                    <span class="time-comment"></span>
-                              </div>
-
-                                    <div class="reply-comment" id="reply-comment-${comment.id}">
-                                        <div class="share-box-inner">
+            let replyE = ``;
+            if(comment.listReply && comment.listReply.length >0){
+                comment.listReply.reverse().forEach( reply => {
+                    let timeRep = timeNow(reply.reply_date);
+                    replyE += `
+                       <div class="share-box-inner">
                                             <!-- profile picture end -->
                                             <div class="profile-thumb">
                                                 <a href="#">
@@ -137,13 +115,54 @@ function renderData1(data) {
                                                 </a>
                                             </div>
                                             <!-- profile picture end -->
-
                                             <div class="share-content-box w-100">
-                                                <form class="share-text-box">
-                                                    <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>
-                                                    <button type="submit" class="btn-share" id="submit">SEND</button>
-                                                </form>
+                                                <div class="comment-info" id="commentSection">
+                                                            <h6>${reply.user.fullName}</h6>
+                                                            <p  class="comment" >${reply.text}</p>
+                                                     <span class="time-comment">${timeRep}</span>
+                                                </div>
                                             </div>
+                                        </div>`
+                })
+            }
+            let timeComment = timeNow(comment.comment_date);
+            commentBlock += `
+                     <div class="form-comment" >
+                                <!-- profile picture end -->
+                                <div class="profile-thumb">
+                                    <a href="#">
+                                        <figure class="profile-thumb-middle" >
+                                            <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
+                                        </figure> 
+                                    </a>
+                                </div>
+                                <!-- profile picture end -->
+
+                            <div class="comment-info" id="commentSection">
+                                <h6>${comment.user.fullName}</h6>
+                                    <p  class="comment" >${comment.contentComment.text}</p>
+                                    <button onclick="showReply(${comment.id})">
+                                        <span id="show-hide-text-${comment.id}" class="bi bi-reply" > _Show_reply</span>
+                                    </button>
+                                    <span class="time-comment">${timeComment}</span>
+                            </div> 
+                    
+                            <div class="reply-comment" id="reply-comment-${comment.id}">
+                                    
+                                     ${replyE}
+                                        
+                                        <div class="share-box-inner">
+                                                 <div class="profile-thumb">
+                                                      <a href="#">
+                                                                <figure class="profile-thumb-middle" >
+                                                                    <img  class="new-photo"  src="assets/images/photos/photo1.jpg"/>
+                                                                </figure>
+                                                      </a>
+                                                 </div>
+                                                 <div class="share-text-box" id="commentForm">
+                                                       <textarea name="share" id="commentReply${comment.id}" class="share-text-field" placeholder="Say Something"></textarea>
+                                                       <button type="submit" class="btn-share" id="submit" onclick="submitReply(${comment.id})">SEND</button>
+                                                 </div>
                                         </div>
                                     </div>
                                   
@@ -157,14 +176,11 @@ function renderData1(data) {
                                             <div class=" buton-editer">
                                                      <button type="button" onclick="removeCommentFromPost(${comment.id})">Xóa</button>
                                               </div>  
-</div>
-                                     </div>   
-                                </div>
-                                 `
+                                        </div>
+                                     </div>
+                    </div>`
         });
     }
-
-
     return `<div class="card">
                     <!-- post title start -->
                     <div class="post-title d-flex align-items-center">
@@ -252,11 +268,10 @@ function renderData1(data) {
 
                         <div class="comment-container" id="comment-${data.id}" >
                             ${commentBlock}
-                                   </div>
-                         </div>
-
+                        </div>
                     </div>
-                </div>`
+                 </div>
+           </div>`
 }
 
 function timeNow(date) {

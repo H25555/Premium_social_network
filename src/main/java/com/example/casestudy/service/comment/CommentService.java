@@ -1,10 +1,7 @@
 package com.example.casestudy.service.comment;
 
 import com.example.casestudy.model.*;
-import com.example.casestudy.repository.CommentRepository;
-import com.example.casestudy.repository.ContentCommentRepo;
-import com.example.casestudy.repository.PostRepository;
-import com.example.casestudy.repository.UserRepository;
+import com.example.casestudy.repository.*;
 import com.example.casestudy.service.comment.request.CommentSaveRequest;
 import com.example.casestudy.service.user.UserService;
 import com.example.casestudy.utils.AppUtils;
@@ -29,13 +26,17 @@ public class CommentService {
     public Comment saveComment(CommentSaveRequest commentSaveRequest, User user){
         Comment comment = new Comment();
         comment.setUser(user);
+
         Post post = postRepository.findById(Long.valueOf(commentSaveRequest.getId())).get();
-comment.setPost(post);
+        comment.setPost(post);
+
         ContentComment content = new ContentComment();
         content.setText(commentSaveRequest.getContent());
         contentCommentRepo.save(content);
-comment.setContentComment(content);
+
+        comment.setContentComment(content);
         comment.setComment_date(LocalDateTime.now());
+
         return commentRepository.save(comment);
     }
     public Optional<Comment> getCommentById(Long id){

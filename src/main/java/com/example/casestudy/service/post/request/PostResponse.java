@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class PostResponse {
+    private Long id;
     private User user;
     private Content content;
     private LocalDateTime create_date;

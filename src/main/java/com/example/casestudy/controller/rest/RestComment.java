@@ -1,6 +1,7 @@
 package com.example.casestudy.controller.rest;
 
 import com.example.casestudy.model.Comment;
+import com.example.casestudy.model.Reply;
 import com.example.casestudy.model.User;
 import com.example.casestudy.repository.CommentRepository;
 import com.example.casestudy.repository.UserRepository;

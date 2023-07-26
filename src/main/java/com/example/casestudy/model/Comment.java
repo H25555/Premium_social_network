@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -32,10 +34,8 @@ public class Comment {
     @JsonIgnore
     private Post post;
 
-    @ManyToOne
-    @JoinColumn(name = "id_parent_comment")
-    @JsonIgnore
-    private Comment parentComment;
+    @OneToMany(mappedBy = "comment")
+    private List<Reply> listReply = new ArrayList<>();
 
     private LocalDateTime comment_date;
 }

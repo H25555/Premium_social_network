@@ -1,57 +1,14 @@
+
 const commentsCont = document.querySelector('#comment-container')
 const submit = document.querySelector('#comment-submit')
 let API_COMMENT = 'http://localhost:8080/api/comments';
 function showComment(id) {
-    const comment = document.getElementById('comment-' + id);
-    if (comment.style.display === 'none') {
+    const comment = document.getElementById('comment-'+id);
+    if(comment.style.display === 'none'){
         comment.style.display = 'block'
-    } else {
+    }else {
         comment.style.display = 'none'
     }
-
-}
-
-function getCommentsForPost(postId) {
-    $.ajax({
-        url: `/api/comments`,
-        type: 'GET', data: {
-            postId: postId
-
-        }, success: function (comments) {
-            const commentsContainer = $(`#comment_${postId}`);
-            commentsContainer.empty();
-
-            $.each(comments, function (index, comment) {
-                console.log(comment)
-                // Hiển thị nội dung của bình luận
-                const commentDiv = document.createElement('div');
-                commentDiv.innerHTML = `
-                         <div class="profile-thumb">
-                                    <a href="#">
-                                         <figure class="profile-thumb-middle" >
-                                            <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
-                                        </figure>
-                                     </a>
-                                 </div>
-                                 <!-- profile picture end -->
-                                <div class="comment-info">
-                                     <p  class="comment">
-                                        ${comment.user.username}
-                                  </p>
-                                     <button onclick="showReply()">
-                                      <span class="bi bi-reply">Reply</span>
-                                    </button>
-                                         <span class="time-comment"></span>
-                            </div>
-                        <p>${comment.user.username}: ${comment.content.text}</p>
-                    `;
-
-                commentsContainer.append(commentDiv);
-            });
-        }, error: function () {
-            alert('Error getting comments');
-        }
-    });
 }
 
 function submitComment(id) {
@@ -67,8 +24,11 @@ function submitComment(id) {
             url: '/api/comments',
             type: 'POST',
             data: JSON.stringify({
-                content: value, id: id
-            }), contentType: 'application/json', success: function (response) {
+                content: value,
+                id: id
+            }),
+            contentType: 'application/json',
+            success: function (response) {
                 console.log(response)
                 // Đã thêm mới bình luận thành công, cập nhật lại danh sách bình luận
                 // getCommentsForPost(id);
@@ -79,12 +39,10 @@ function submitComment(id) {
                 document.querySelector('#comment' + id).value = ''
 
                 const divNew = document.createElement('div')
-                divNew.classList = "form-comment"
-                divNew.id = `form-comment-${response.id}`;
+                divNew.classList ="form-comment"
+                let timeComment = timeNow(response.comment_date);
                 // 'comment-container'
-                divNew.innerHTML += `
-
-                                    <div class="profile-thumb">
+                divNew.innerHTML += ` <div class="profile-thumb">
                                     <a href="#">
                                         <figure class="profile-thumb-middle" >
                                             <img  class="new-photo" src="assets/images/photos/photo1.jpg"/>
@@ -94,11 +52,12 @@ function submitComment(id) {
                                 <!-- profile picture end -->
 
                                 <div class="comment-info" id="commentSection">
+                                <h6>${response.user.fullName}</h6>
                                     <p  class="comment" >${response.contentComment.text}</p>
                                     <button onclick="showReply(${response.id})">
                                         <span class="bi bi-reply" >Reply</span>
                                     </button>
-                                    <span class="time-comment">${time}</span>
+                                    <span class="time-comment">${timeComment}</span>
                               </div>
 
                                     <div class="reply-comment" id="reply-comment-${response.id}">
@@ -112,7 +71,7 @@ function submitComment(id) {
                                                 </a>
                                             </div>
                                             <!-- profile picture end -->
-
+                          
                                             <div class="share-content-box w-100">
                                                 <form class="share-text-box">
                                                     <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>

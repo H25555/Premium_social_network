@@ -54,11 +54,11 @@
         border-radius:50%;
         height:100%;
     }
-    .comment-container{
-        display: none;
-       max-height: 300px;
-        overflow: auto;
 
+    .comment-container {
+        display: none;
+        max-height: 500px;
+        overflow: auto;
     }
 
     #commentForm a {
@@ -107,6 +107,10 @@
         -o-transition: all 0.4s ease;
         transition: all 0.4s ease;
     }
+    input[type="file"] {
+        display: none;
+    }
+
 </style>
 
 
@@ -828,9 +832,9 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="post-share-btn" data-dismiss="modal">cancel</button>
-                                                <button type="submit" class="post-share-btn">post</button>
+                                                <button type="submit" class="post-share-btn" >post</button>
+                                                <label for="fileInput" class="post-share-btn" style="margin-top: 10px">Add file</label>
                                                 <input  type="file" name="fileInput" id="fileInput" accept="image/*,video/*" onchange="uploadFile()" multiple>
-
                                             </div>
                                         </form>
                                     </div>
@@ -958,20 +962,36 @@
                                                         </a>
                                                     </div>
                                                     <!-- profile picture end -->
-
                                                     <div class="share-content-box w-100">
-                                                        <form class="share-text-box">
+
+                                                        <div class="comment-info" id="commentSection">
+                                                            <h6>CR7</h6>
+                                                            <p  class="comment" >ádasd</p>
+                                                            <button onclick="showReply(${response.id})">
+                                                                <span class="bi bi-reply" >Reply</span>
+                                                            </button>
+                                                            <span class="time-comment">1 phút</span>
+                                                        </div>
+                                                        <div class="share-box-inner">
+
+                                                        <div class="profile-thumb">
+                                                            <a href="#">
+                                                                <figure class="profile-thumb-middle" >
+                                                                    <img  class="new-photo"  src="assets/images/photos/photo1.jpg"/>
+                                                                </figure>
+                                                            </a>
+                                                        </div>
+                                                        <div class="share-text-box">
                                                             <textarea name="share" id="commentReply" class="share-text-field" placeholder="Say Something"></textarea>
-                                                            <button type="submit" class="btn-share" id="submit">Sent</button>
-                                                        </form>
+                                                            <button type="submit" class="btn-share" id="submit">Send</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
-
+                                </div>
 
                             </div>
                         </div>
