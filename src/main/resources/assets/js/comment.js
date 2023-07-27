@@ -34,13 +34,14 @@ function submitComment(id) {
                 // getCommentsForPost(id);
 
                 // Xóa nội dung trong textarea sau khi thêm bình luận thành công
-
+                let timeComment = timeNow(response.comment_date);
                 document.querySelector('#comment-' + id).style.display = 'block'
                 document.querySelector('#comment' + id).value = ''
 
                 const divNew = document.createElement('div')
                 divNew.classList ="form-comment"
-                let timeComment = timeNow(response.comment_date);
+
+                divNew.id = `form-comment-${response.id}`;
                 // 'comment-container'
                 divNew.innerHTML += ` <div class="profile-thumb">
                                     <a href="#">
@@ -59,7 +60,18 @@ function submitComment(id) {
                                     </button>
                                     <span class="time-comment">${timeComment}</span>
                               </div>
-
+                                <div class="comment-icon">
+                                            <i class="fa-solid fa-ellipsis"></i>                           
+                                           
+                                            <div class="comment-reply-action">
+                                             <div class=" buton-editer">
+                                                     <button type="button" onclick="editCommentFromPost(${response.id})">Chỉnh sửa </button>
+                                             </div>   
+                                            <div class=" buton-editer">
+                                                     <button type="button" onclick="removeCommentFromPost(${response.id})">Xóa</button>
+                                              </div>  
+                                        </div>
+                                     </div>  
                                     <div class="reply-comment" id="reply-comment-${response.id}">
                                         <div class="share-box-inner">
                                             <!-- profile picture end -->

@@ -7,6 +7,24 @@
 //         post.style.display = 'block'
 //     }
 // }
+// function uploadFile() {
+//     const fileInput = document.getElementById("fileInput");
+//     const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"];
+//     const files = fileInput.files;
+//
+//     for (let i = 0; i < files.length; i++) {
+//         const file = files[i];
+//         const fileType = file.type;
+//
+//         if (!allowedTypes.includes(fileType)) {
+//             alert("Chỉ chọn các tệp ảnh (JPEG, PNG, GIF) hoặc video (MP4, QuickTime).");
+//             fileInput.value = ""; // Xóa tệp không hợp lệ khỏi ô chọn tệp
+//             return false;
+//         }
+//     }
+//     return true;
+//
+// }
 function uploadFile() {
     const fileInput = document.getElementById("fileInput");
     const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"];
@@ -21,9 +39,24 @@ function uploadFile() {
             fileInput.value = ""; // Xóa tệp không hợp lệ khỏi ô chọn tệp
             return false;
         }
-    }
-    return true;
 
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            const imageURL = reader.result;
+            const img = document.createElement("img");
+            img.src = imageURL;
+            img.style.maxWidth = "100%";
+            img.style.maxHeight = "300px"; // Tùy chỉnh kích thước hiển thị ảnh
+            const imagePreview = document.getElementById("imagePreview");
+            imagePreview.innerHTML = ""; // Xóa nội dung cũ trước khi thêm ảnh mới
+            imagePreview.appendChild(img);
+        });
+
+        reader.readAsDataURL(file);
+    }
+
+    return true;
 }
 function createPost(e){
     e.preventDefault();
@@ -143,15 +176,35 @@ function renderData1(data) {
                                 </div>
                                 <!-- profile picture end -->
 
-                            <div class="comment-info" id="commentSection">
-                                <h6>${comment.user.fullName}</h6>
+ <div class="comment-info " id="commentSection${comment.id}">
+                                    <h6>${comment.user.fullName}</h6>
                                     <p  class="comment" >${comment.contentComment.text}</p>
+                                   <div class="comment-edit">
+                                    <textarea class="edit-textarea"  >${comment.contentComment.text}</textarea>
+                                    <div>
+                                    <button type="button" class="btn-share" onclick="submitEditComment(${comment.id})">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                    <button type="button" onclick="cancelReply(${comment.id})" ">Hủy</button>
+</div>
+</div>
                                     <button onclick="showReply(${comment.id})">
-                                        <span id="show-hide-text-${comment.id}" class="bi bi-reply" > _Show_reply</span>
+                                        <span class="bi bi-reply" >Reply</span>
                                     </button>
                                     <span class="time-comment">${timeComment}</span>
-                            </div> 
-                    
+                              </div> 
+                              <div class="comment-icon">
+                                            <i class="fa-solid fa-ellipsis"></i>                           
+                                           
+                                            <div class="comment-reply-action">
+                                             <div class=" buton-editer">
+                                                     <button type="button" onclick="editCommentFromPost(${comment.id})">Chỉnh sửa </button>
+                                             </div>   
+                                            <div class=" buton-editer">
+                                                     <button type="button" onclick="removeCommentFromPost(${comment.id})">Xóa</button>
+                                              </div>  
+                                        </div>
+                                     </div>               
                             <div class="reply-comment" id="reply-comment-${comment.id}">
                                     
                                      ${replyE}
@@ -171,18 +224,7 @@ function renderData1(data) {
                                         </div>
                                     </div>
                                   
-                                        <div class="comment-icon">
-                                            <i class="fa-solid fa-ellipsis"></i>                           
-                                           
-                                            <div class="comment-reply-action">
-                                             <div class=" buton-editer">
-                                                     <button type="button" onclick="editCommentFromPost(${comment.id})">Chỉnh sửa </button>
-                                             </div>   
-                                            <div class=" buton-editer">
-                                                     <button type="button" onclick="removeCommentFromPost(${comment.id})">Xóa</button>
-                                              </div>  
-                                        </div>
-                                     </div>
+                                        
                     </div>`
         });
     }
@@ -190,6 +232,7 @@ function renderData1(data) {
                     <!-- post title start -->
                     <div class="post-title d-flex align-items-center">
                         <!-- profile picture end -->
+                        
                         <div class="profile-thumb">
                             <a>
                                 <figure class="profile-thumb-middle" >
