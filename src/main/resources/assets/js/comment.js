@@ -11,6 +11,7 @@ function showComment(id) {
     }
 }
 
+// Đoạn mã JavaScript
 function submitComment(id) {
     let time = timeNow(id.comment_date)
     // lấy user
@@ -39,7 +40,7 @@ function submitComment(id) {
                 document.querySelector('#comment' + id).value = ''
 
                 const divNew = document.createElement('div')
-                divNew.classList ="form-comment"
+                divNew.classList = "form-comment"
 
                 divNew.id = `form-comment-${response.id}`;
                 // 'comment-container'
@@ -51,23 +52,31 @@ function submitComment(id) {
                                     </a>
                                 </div>
                                 <!-- profile picture end -->
-
-                                <div class="comment-info" id="commentSection">
-                                <h6>${response.user.fullName}</h6>
+                                 <div class="comment-info " id="commentSection${response.id}">
+                                    <h6>${response.user.fullName}</h6>
                                     <p  class="comment" >${response.contentComment.text}</p>
-                                    <button onclick="showReply(${response.id})">
+                                     <button onclick="showReply(${response.id})">
                                         <span class="bi bi-reply" >Reply</span>
                                     </button>
                                     <span class="time-comment">${timeComment}</span>
-                              </div>
-                                <div class="comment-icon">
+                                   <div class="comment-edit">
+                                    <textarea class="edit-textarea"  >${response.contentComment.text}</textarea>
+                                    <div>
+                                    <button type="button" class="btn-share" onclick="submitEditComment(${response.id})">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                    <button type="button" onclick="cancelReply(${response.id})">Hủy</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                                       <div class="comment-icon">
                                             <i class="fa-solid fa-ellipsis"></i>                           
                                            
                                             <div class="comment-reply-action">
-                                             <div class=" buton-editer">
-                                                     <button type="button" onclick="editCommentFromPost(${response.id})">Chỉnh sửa </button>
+                                             <div class="buton-editer">
+                                                     <button type="button" onclick="editCommentFromPost(${response.id})">Chỉnh sửa</button>
                                              </div>   
-                                            <div class=" buton-editer">
+                                            <div class="buton-editer">
                                                      <button type="button" onclick="removeCommentFromPost(${response.id})">Xóa</button>
                                               </div>  
                                         </div>
@@ -96,6 +105,7 @@ function submitComment(id) {
                 document.querySelector('#comment-' + id).insertAdjacentElement('afterbegin', divNew);
                 let countComment = +document.getElementById("countComment").textContent;
                 document.getElementById("countComment").innerText = countComment + 1;
+                checkUserAccess(response.id, currentUser);
             }, //thêm mới vào div
             error: function () {
                 alert('Không thể thêm bình luận!');
@@ -103,6 +113,17 @@ function submitComment(id) {
         });
     }
 }
+function checkUserAccess(commentId, currentUser) {
+    const commentActions = document.querySelector(`#commentSection${commentId} .comment-reply-action`);
+
+    if (currentUser && currentUser.id === commentId) {
+        commentActions.style.display = 'block';
+    } else {
+        commentActions.style.display = 'none';
+    }
+}
+
+
 
 function editCommentFromPost(id) {
     const commentDiv = document.getElementById(`commentSection${id}`);
@@ -159,7 +180,7 @@ function deleteCommentById(id) {
         url: API_COMMENT + '/' + id,
         type: 'DELETE',
     }).done(response => {
-        const container = document.getElementById("comment-"+response.post.id);
+        const container = document.getElementById("comment-"+response.post().id);
         const div =document.getElementById("form-comment-"+ id);
 
         if (div) {

@@ -1,30 +1,36 @@
+function getUserLogIn() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "http://localhost:8080/api/user",
+            type: "GET",
+            headers: {
+                'Accept': 'application/json',
+            },
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                resolve(response);
+            },
+            error: function(error) {
+                reject(error);
+            }
+        });
+    });
+}
 
-// function showPost() {
-//     const post = document.getElementById('textbox');
-//     if(post.style.display === 'block'){
-//         post.style.display = 'none'
-//     }else {
-//         post.style.display = 'block'
-//     }
-// }
-// function uploadFile() {
-//     const fileInput = document.getElementById("fileInput");
-//     const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"];
-//     const files = fileInput.files;
-//
-//     for (let i = 0; i < files.length; i++) {
-//         const file = files[i];
-//         const fileType = file.type;
-//
-//         if (!allowedTypes.includes(fileType)) {
-//             alert("Chỉ chọn các tệp ảnh (JPEG, PNG, GIF) hoặc video (MP4, QuickTime).");
-//             fileInput.value = ""; // Xóa tệp không hợp lệ khỏi ô chọn tệp
-//             return false;
-//         }
-//     }
-//     return true;
-//
-// }
+// await getUserLogIn()
+
+
+
+
+function showPost() {
+    const post = document.getElementById('textbox');
+    if(post.style.display === 'block'){
+        post.style.display = 'none'
+    }else {
+        post.style.display = 'block'
+    }
+}
 function uploadFile() {
     const fileInput = document.getElementById("fileInput");
     const allowedTypes = ["image/jpeg", "image/png", "image/gif", "video/mp4", "video/quicktime"];
@@ -106,8 +112,10 @@ function handleRenderDatas() {
     });
 }
 handleRenderDatas()
-function renderDatas(datas) {
+ function renderDatas(datas) {
     let html = ``;
+
+
     datas.forEach((data) => {
         html += renderData1(data)
         // renderComment(data.comments,data.id);
@@ -116,7 +124,8 @@ function renderDatas(datas) {
     postBlock.innerHTML = html;
 }
 
-function renderData1(data) {
+ function renderData1(data) {
+
 
     let time = timeNow(data.create_date)
     let countComment = data.comments ? data.comments.length : 0
@@ -139,6 +148,25 @@ function renderData1(data) {
     if(data.comments && data.comments.length > 0){
         data.comments.reverse().forEach(comment => {
             let replyE = ``;
+            let bockUserEdit = ``;
+
+            console.log(comment)
+            if (userLogin.id == comment.user.id){
+                bockUserEdit =`
+                          <div class="comment-icon">
+                                            <i class="fa-solid fa-ellipsis"></i>
+
+                                            <div class="comment-reply-action">
+                                             <div class=" buton-editer">
+                                                     <button type="button" onclick="editCommentFromPost(${comment.id})"  id="editBtn-${comment.id}">Chỉnh sửa </button>
+                                             </div>
+                                            <div class=" buton-editer">
+                                                     <button type="button" onclick="removeCommentFromPost(${comment.id})" id="deleteBtn-${comment.id}">Xóa</button>
+                                              </div>
+                                        </div>
+                                     </div>
+                `
+            }
             if(comment.listReply && comment.listReply.length >0){
                 comment.listReply.reverse().forEach( reply => {
                     let timeRep = timeNow(reply.reply_date);
@@ -176,7 +204,7 @@ function renderData1(data) {
                                 </div>
                                 <!-- profile picture end -->
 
- <div class="comment-info " id="commentSection${comment.id}">
+                            <div class="comment-info " id="commentSection${comment.id}">
                                     <h6>${comment.user.fullName}</h6>
                                     <p  class="comment" >${comment.contentComment.text}</p>
                                    <div class="comment-edit">
@@ -193,19 +221,8 @@ function renderData1(data) {
                                     </button>
                                     <span class="time-comment">${timeComment}</span>
                               </div> 
-                              <div class="comment-icon">
-                                            <i class="fa-solid fa-ellipsis"></i>                           
-                                           
-                                            <div class="comment-reply-action">
-                                             <div class=" buton-editer">
-                                                     <button type="button" onclick="editCommentFromPost(${comment.id})">Chỉnh sửa </button>
-                                             </div>   
-                                            <div class=" buton-editer">
-                                                     <button type="button" onclick="removeCommentFromPost(${comment.id})">Xóa</button>
-                                              </div>  
-                                        </div>
-                                     </div>               
-                            <div class="reply-comment" id="reply-comment-${comment.id}">
+                              ${bockUserEdit}
+                            <div class="replys-comment" id="reply-comment-${comment.id}">
                                     
                                      ${replyE}
                                         

@@ -60,4 +60,5 @@ public class AuthService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), role);
 
     }
+
 }
