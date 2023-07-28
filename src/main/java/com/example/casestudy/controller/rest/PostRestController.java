@@ -4,6 +4,7 @@ import com.example.casestudy.model.Content;
 import com.example.casestudy.model.Like;
 import com.example.casestudy.model.Post;
 import com.example.casestudy.model.User;
+import com.example.casestudy.model.enums.Status;
 import com.example.casestudy.repository.UserRepository;
 import com.example.casestudy.service.UploadService;
 import com.example.casestudy.service.like.LikeService;
@@ -45,7 +46,7 @@ public class PostRestController {
         for (Post post: posts) {
             PostResponse response = AppUtils.mapper.map(post,PostResponse.class);
             Like like = likeService.getPostLikeByUser(user, post);
-            if (like != null){
+            if (like != null && like.getStatus().equals(Status.LIKE)){
                 response.setLike(true);
             } else {
                 response.setLike(false);

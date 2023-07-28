@@ -123,7 +123,6 @@ function renderData1(data) {
     let mediaHtml = ``;
     let commentBlock = ``;
 
-
     let heartIcon = `<img class="heart${data.id}" src="assets/images/icons/heart.png" alt="" style="display: inline-block">`;
     let revHeart = `<img class="heart-color${data.id}" src="assets/images/icons/heart-color.png" alt="" style="display: none">`;
     if (data.like === true){
@@ -131,11 +130,21 @@ function renderData1(data) {
         revHeart = `<img class="heart${data.id}" src="assets/images/icons/heart.png" alt="" style="display: none">`;
         }
 
-    if(data.content.media !== null){
+
+    if(data.content.media !== null ){
     data.content.media.forEach((media) => {
+        if(media.fileType === "IMAGE"){
         mediaHtml += `<img src=${media.url} alt="post image">`;
+        } else {
+            mediaHtml += `<video controls>
+        <source src=${media.url} type="video/mp4">
+        </video>`;
+        }
     });
+
     }
+
+
     if(data.comments && data.comments.length > 0){
         data.comments.reverse().forEach(comment => {
             let replyE = ``;
@@ -154,7 +163,7 @@ function renderData1(data) {
                                             </div>
                                             <!-- profile picture end -->
                                             <div class="share-content-box w-100">
-                                                <div class="comment-info" id="commentSection">
+                                                <div class="comment-info" id="commentSection${comment.id}">
                                                             <h6>${reply.user.fullName}</h6>
                                                             <p  class="comment" >${reply.text}</p>
                                                      <span class="time-comment">${timeRep}</span>
@@ -178,6 +187,7 @@ function renderData1(data) {
 
  <div class="comment-info " id="commentSection${comment.id}">
                                     <h6>${comment.user.fullName}</h6>
+
                                     <p  class="comment" >${comment.contentComment.text}</p>
                                    <div class="comment-edit">
                                     <textarea class="edit-textarea"  >${comment.contentComment.text}</textarea>
